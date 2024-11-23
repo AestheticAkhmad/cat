@@ -8,7 +8,7 @@ from adafruit_pca9685 import PCA9685
 import RPi.GPIO as GPIO
 class Robot:# Initialise the PCA9685 using the default address (0x40).
 	def __init__(self):
-		self.move_speed = 0x5555  # half of Max pulse length out of 0xFFFF
+		self.move_speed = 0x7FFF  # half of Max pulse length out of 0xFFFF
 		self.LEFT_BACK = 23  #Left motor direction pin
 		self.LEFT_FRONT = 24  #Left motor direction pin
 		self.RIGHT_BACK = 27  #Right motor direction pin
