@@ -53,6 +53,7 @@ try:
                     print("Turn Right")
                     robot.turnRight()
             else:
+                time.sleep(0.5)
                 robot.stopcar()
         
         # else:
