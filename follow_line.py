@@ -48,10 +48,10 @@ try:
                     print("Go Straight")
                 elif offset < -5:
                     print("Turn Left")
-                    robot.turnLeft()
+                    robot.turnRight()
                 elif offset > 5:
                     print("Turn Right")
-                    robot.turnRight()
+                    robot.turnLeft()
             else:
                 time.sleep(0.5)
                 robot.stopcar()
