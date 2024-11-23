@@ -16,13 +16,15 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		self.RIGHT_BACK = 27  #Right motor direction pin
 		self.RIGHT_FRONT = 22  #Right motor direction pin
 
-		GPIO.setup(self.LEFT_BACK, GPIO.OUT)   
-		GPIO.setup(self.LEFT_FRONT, GPIO.OUT) 
-		GPIO.setup(self.RIGHT_BACK, GPIO.OUT)   
-		GPIO.setup(self.RIGHT_FRONT, GPIO.OUT) 
+		self.pwm.frequency = 60
+
+	GPIO.setup(self.LEFT_BACK, GPIO.OUT)   
+	GPIO.setup(self.LEFT_FRONT, GPIO.OUT) 
+	GPIO.setup(self.RIGHT_BACK, GPIO.OUT)   
+	GPIO.setup(self.RIGHT_FRONT, GPIO.OUT) 
 
 	# Set frequency to 60hz, good for servos.
-	pwm.frequency = 60
+	
 	GPIO.setmode(GPIO.BCM) # GPIO number  in BCM mode
 	GPIO.setwarnings(False)
 	#define L298N(Model-Pi motor drive board) GPIO pins
@@ -34,8 +36,8 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 	
 
 	def changespeed(self, speed):
-		pwm.channels[ENA].duty_cycle = speed
-		pwm.channels[ENB].duty_cycle = speed
+		self.pwm.channels[ENA].duty_cycle = speed
+		self.pwm.channels[ENB].duty_cycle = speed
 
 
 	def stopcar(self):
