@@ -54,6 +54,8 @@ try:
         #     stopcar()
         #     print("stopped car")
 
+        robot.stopcar()
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 

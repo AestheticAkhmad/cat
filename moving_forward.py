@@ -38,10 +38,10 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 
 
 	def stopcar(self):
-		GPIO.output(LEFT_BACK, GPIO.LOW)
-		GPIO.output(LEFT_FRONT, GPIO.LOW)
-		GPIO.output(RIGHT_BACK, GPIO.LOW)
-		GPIO.output(RIGHT_FRONT, GPIO.LOW)
+		GPIO.output(self.LEFT_BACK, GPIO.LOW)
+		GPIO.output(self.LEFT_FRONT, GPIO.LOW)
+		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
+		GPIO.output(self.RIGHT_FRONT, GPIO.LOW)
 		changespeed(0)
 
 
