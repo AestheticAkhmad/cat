@@ -14,7 +14,7 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		self.RIGHT_BACK = 27  #Right motor direction pin
 		self.RIGHT_FRONT = 22  #Right motor direction pin
 		self.i2c_bus = busio.I2C(SCL, SDA)
-		self.pwm =  PCA9685(i2c_bus)
+		self.pwm =  PCA9685(self.i2c_bus)
 		self.pwm.frequency = 60
 
 		GPIO.setup(self.LEFT_BACK, GPIO.OUT)   
