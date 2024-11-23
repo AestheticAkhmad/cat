@@ -39,6 +39,7 @@ try:
             frame_center = width // 2
             if cx > 0:
                 offset = cx - frame_center
+                print("offset: ", offset)
                 if offset < -50:
                     print("Turn Left")
                 elif offset > 50:
