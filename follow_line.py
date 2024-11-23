@@ -3,6 +3,8 @@ from picamera2 import Picamera2
 import time
 from moving_forward import Robot
 
+robot = Robot()
+
 picam2 = Picamera2()
 picam2.start()
 
@@ -45,7 +47,7 @@ try:
                 elif offset > 10:
                     print("Turn Right")
                 elif offset >= -10 and offset <= 10:
-                    #forward()
+                    robot.forward()
                     print("Go Straight")
         
         # else:

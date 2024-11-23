@@ -10,7 +10,7 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 	i2c_bus = busio.I2C(SCL, SDA)
 	pwm =  PCA9685(i2c_bus)
 
-	move_speed = 0x7FFF  # half of Max pulse length out of 0xFFFF
+	move_speed = 0x5555  # half of Max pulse length out of 0xFFFF
 
 	# Set frequency to 60hz, good for servos.
 	pwm.frequency = 60
