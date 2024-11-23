@@ -18,10 +18,10 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 
 		self.pwm.frequency = 60
 
-	GPIO.setup(self.LEFT_BACK, GPIO.OUT)   
-	GPIO.setup(self.LEFT_FRONT, GPIO.OUT) 
-	GPIO.setup(self.RIGHT_BACK, GPIO.OUT)   
-	GPIO.setup(self.RIGHT_FRONT, GPIO.OUT) 
+		GPIO.setup(self.LEFT_BACK, GPIO.OUT)   
+		GPIO.setup(self.LEFT_FRONT, GPIO.OUT) 
+		GPIO.setup(self.RIGHT_BACK, GPIO.OUT)   
+		GPIO.setup(self.RIGHT_FRONT, GPIO.OUT) 
 
 	# Set frequency to 60hz, good for servos.
 	
