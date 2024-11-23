@@ -19,11 +19,11 @@ try:
     while time.time() - start_time < video_duration:
         frame = picam2.capture_array()
         gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
+        gray = cv2.GaussianBlur(gray, (7,7), 0)
 
         # Define Region of Interest (ROI)
         height, width = gray.shape
         roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
-
         time.sleep(0.25)
 
         # Thresholding to detect black line
