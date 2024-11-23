@@ -23,21 +23,18 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		GPIO.setup(self.RIGHT_BACK, GPIO.OUT)   
 		GPIO.setup(self.RIGHT_FRONT, GPIO.OUT) 
 
+		self.ENA = 0  #Left motor speed PCA9685 port 0
+		self.ENB = 1  #Right motor speed PCA9685 port 1
+
 	# Set frequency to 60hz, good for servos.
 	
 	GPIO.setmode(GPIO.BCM) # GPIO number  in BCM mode
 	GPIO.setwarnings(False)
 	#define L298N(Model-Pi motor drive board) GPIO pins
 
-	ENA = 0  #Left motor speed PCA9685 port 0
-	ENB = 1  #Right motor speed PCA9685 port 1
-
-	# Define motor control  pins as output
-	
-
 	def changespeed(self, speed):
-		self.pwm.channels[ENA].duty_cycle = speed
-		self.pwm.channels[ENB].duty_cycle = speed
+		self.pwm.channels[self.ENA].duty_cycle = speed
+		self.pwm.channels[self.ENB].duty_cycle = speed
 
 
 	def stopcar(self):
