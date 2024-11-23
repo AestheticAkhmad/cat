@@ -3,7 +3,6 @@ from picamera2 import Picamera2
 import time
 from moving_forward import Robot
 
-Initialize Picamera2
 picam2 = Picamera2()
 picam2.start()
 
