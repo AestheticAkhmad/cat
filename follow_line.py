@@ -40,11 +40,11 @@ try:
             if cx > 0:
                 offset = cx - frame_center
                 print("offset: ", offset)
-                if offset < -50:
+                if offset < -10:
                     print("Turn Left")
-                elif offset > 50:
+                elif offset > 10:
                     print("Turn Right")
-                else:
+                elif offset >= -10 and offset <= 10:
                     #forward()
                     print("Go Straight")
         
