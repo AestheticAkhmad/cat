@@ -36,14 +36,12 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		self.pwm.channels[self.ENA].duty_cycle = speed
 		self.pwm.channels[self.ENB].duty_cycle = speed
 
-
 	def stopcar(self):
 		GPIO.output(self.LEFT_BACK, GPIO.LOW)
 		GPIO.output(self.LEFT_FRONT, GPIO.LOW)
 		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
 		GPIO.output(self.RIGHT_FRONT, GPIO.LOW)
-		changespeed(0)
-
+		self.changespeed(0)
 
 	def backward(self):
 		GPIO.output(IN1, GPIO.HIGH)
@@ -60,16 +58,16 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		self.changespeed(self.move_speed)
 
 	def turnRight(self):
-		GPIO.output(IN1, GPIO.LOW)
-		GPIO.output(IN2, GPIO.HIGH)
-		GPIO.output(IN3, GPIO.HIGH)
-		GPIO.output(IN4, GPIO.LOW)
-
+		GPIO.output(self.LEFT_BACK, GPIO.LOW)
+		GPIO.output(self.LEFT_FRONT, GPIO.HIGH)
+		GPIO.output(self.RIGHT_BACK, GPIO.HIGH)
+		GPIO.output(self.RIGHT_FRONT, GPIO.LOW)
+		self.changespeed(self.move_speed)
 		
 	def turnLeft(self):
-		GPIO.output(IN1, GPIO.HIGH)
-		GPIO.output(IN2, GPIO.LOW)
-		GPIO.output(IN3, GPIO.LOW)
-		GPIO.output(IN4, GPIO.HIGH)
-		changespeed(move_speed)
+		GPIO.output(self.LEFT_BACK, GPIO.HIGH)
+		GPIO.output(self.LEFT_FRONT, GPIO.LOW)
+		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
+		GPIO.output(self.RIGHT_FRONT, GPIO.HIGH)
+		self.changespeed(move_speed)
 

@@ -44,11 +44,15 @@ try:
                 print("offset: ", offset)
                 if offset < -10:
                     print("Turn Left")
+                    robot.turnLeft()
                 elif offset > 10:
                     print("Turn Right")
+                    robot.turnRight()
                 elif offset >= -10 and offset <= 10:
                     robot.forward()
                     print("Go Straight")
+                else:
+                    robot.stopcar()
         
         # else:
         #     stopcar()
