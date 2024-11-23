@@ -35,19 +35,17 @@ try:
             cy = int(moments["m01"] / moments["m00"])
             cv2.circle(roi, (cx, cy), 5, (255, 0, 0), -1)  # Draw centroid for debugging
 
-            print(cx)
-            print(cy)
-        # # Control logic for line following
-        #     frame_center = width // 2
-        #     if cx > 0:
-        #         offset = cx - frame_center
-        #         if offset < -50:
-        #             print("Turn Left")
-        #         elif offset > 50:
-        #             print("Turn Right")
-        #         else:
-        #             forward()
-        #             print("Go Straight")
+        # Control logic for line following
+            frame_center = width // 2
+            if cx > 0:
+                offset = cx - frame_center
+                if offset < -50:
+                    print("Turn Left")
+                elif offset > 50:
+                    print("Turn Right")
+                else:
+                    #forward()
+                    print("Go Straight")
         
         # else:
         #     stopcar()
