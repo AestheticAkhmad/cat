@@ -51,8 +51,8 @@ try:
                 elif offset >= -10 and offset <= 10:
                     robot.forward()
                     print("Go Straight")
-                else:
-                    robot.stopcar()
+            else:
+                robot.stopcar()
         
         # else:
         #     stopcar()
