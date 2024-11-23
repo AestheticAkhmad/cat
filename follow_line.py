@@ -42,13 +42,13 @@ try:
             if cx > 0:
                 offset = cx - frame_center
                 print("offset: ", offset)
-                if offset < -10:
+                if offset < -5:
                     print("Turn Left")
                     robot.turnLeft()
-                elif offset > 10:
+                elif offset > 5:
                     print("Turn Right")
                     robot.turnRight()
-                elif offset >= -10 and offset <= 10:
+                elif offset >= -5 and offset <= 5:
                     robot.forward()
                     print("Go Straight")
             else:
