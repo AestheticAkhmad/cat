@@ -10,25 +10,25 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 	i2c_bus = busio.I2C(SCL, SDA)
 	pwm =  PCA9685(i2c_bus)
 
-	move_speed = 0x5555  # half of Max pulse length out of 0xFFFF
+	self.move_speed = 0x5555  # half of Max pulse length out of 0xFFFF
 
 	# Set frequency to 60hz, good for servos.
 	pwm.frequency = 60
 	GPIO.setmode(GPIO.BCM) # GPIO number  in BCM mode
 	GPIO.setwarnings(False)
 	#define L298N(Model-Pi motor drive board) GPIO pins
-	LEFT_BACK = 23  #Left motor direction pin
-	LEFT_FRONT = 24  #Left motor direction pin
-	RIGHT_BACK = 27  #Right motor direction pin
-	RIGHT_FRONT = 22  #Right motor direction pin
+	self.LEFT_BACK = 23  #Left motor direction pin
+	self.LEFT_FRONT = 24  #Left motor direction pin
+	self.RIGHT_BACK = 27  #Right motor direction pin
+	self.RIGHT_FRONT = 22  #Right motor direction pin
 	ENA = 0  #Left motor speed PCA9685 port 0
 	ENB = 1  #Right motor speed PCA9685 port 1
 
 	# Define motor control  pins as output
-	GPIO.setup(LEFT_BACK, GPIO.OUT)   
-	GPIO.setup(LEFT_FRONT, GPIO.OUT) 
-	GPIO.setup(RIGHT_BACK, GPIO.OUT)   
-	GPIO.setup(RIGHT_FRONT, GPIO.OUT) 
+	GPIO.setup(self.LEFT_BACK, GPIO.OUT)   
+	GPIO.setup(self.LEFT_FRONT, GPIO.OUT) 
+	GPIO.setup(self.RIGHT_BACK, GPIO.OUT)   
+	GPIO.setup(self.RIGHT_FRONT, GPIO.OUT) 
 
 	def changespeed(self, speed):
 		pwm.channels[ENA].duty_cycle = speed
@@ -51,11 +51,11 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		changespeed(move_speed)
 		
 	def forward(self):
-		GPIO.output(LEFT_BACK, GPIO.LOW)
-		GPIO.output(LEFT_FRONT, GPIO.HIGH)
-		GPIO.output(RIGHT_BACK, GPIO.LOW)
-		GPIO.output(RIGHT_FRONT, GPIO.HIGH)
-		changespeed(move_speed)
+		GPIO.output(self.LEFT_BACK, GPIO.LOW)
+		GPIO.output(self.LEFT_FRONT, GPIO.HIGH)
+		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
+		GPIO.output(self.RIGHT_FRONT, GPIO.HIGH)
+		changespeed(self.move_speed)
 
 	def turnRight(self):
 		GPIO.output(IN1, GPIO.LOW)
