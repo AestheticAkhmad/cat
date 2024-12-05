@@ -70,7 +70,7 @@ try:
             print("Centroid: ", cx)
 
             # Control logic for line following
-            frame_center = width // 2 + offset
+            frame_center = width // 2
             offset = cx - frame_center  # Offset from center of the frame
             print(f"Offset: {offset}")
 
