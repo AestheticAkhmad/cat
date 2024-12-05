@@ -28,11 +28,11 @@ try:
 
         # Thresholding to detect black line
         _, binary = cv2.threshold(roi, 60, 255, cv2.THRESH_BINARY)
-        print(binary)
-        if cv2.imwrite(f'binary_output{i}.png', binary):
-            print("Image saved successfully!")
-        else:
-            print("Failed to save the image.")
+        #print(binary)
+        # if cv2.imwrite(f'binary_output{i}.png', binary):
+        #     print("Image saved successfully!")
+        # else:
+        #     print("Failed to save the image.")
         
         i += 1
 
@@ -43,6 +43,8 @@ try:
             cx = int(moments["m10"] / moments["m00"])
             cy = int(moments["m01"] / moments["m00"])
             cv2.circle(roi, (cx, cy), 5, (255, 0, 0), -1)  # Draw centroid for debugging
+
+        print(moments["m00"])
     
         # Control logic for line following
             frame_center = width // 2
