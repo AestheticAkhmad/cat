@@ -78,7 +78,7 @@ try:
             print(f"Estimated Angle: {angle:.2f} degrees")
 
             # Turn or go straight based on the angle
-            if abs(angle) < 5:  # Small angle -> Go straight
+            if abs(angle) < 15:  # Small angle -> Go straight
                 robot.move_speed = straight_speed
                 print("Go Straight")
             else:  # Larger angle -> Turn
