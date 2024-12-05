@@ -27,7 +27,7 @@ try:
         time.sleep(0.25)
 
         # Thresholding to detect black line
-        binary = cv2.adaptiveThreshold(roi, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 6)
+        binary = cv2.threshold(roi, 60, 255, cv2.THRESH_BINARY)
         print(binary)
         if cv2.imwrite(f'binary_output{i}.png', binary):
             print("Image saved successfully!")
