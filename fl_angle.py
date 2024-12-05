@@ -22,11 +22,11 @@ straight_speed = 0x7FFF
 # Turn function
 def turn(robot, angle):
     """Turns the robot based on the angle."""
-    omega = math.pi
-    t = abs(rad_angle / omega)
 
     rad_angle = angle * (math.pi/180)
     print(rad_angle)
+    omega = math.pi
+    t = abs(rad_angle / omega)
 
     if angle < 0:
         #print(f"Turning Left by {abs(angle):.2f} degrees")
