@@ -44,7 +44,7 @@ try:
             cy = int(moments["m01"] / moments["m00"])
             cv2.circle(roi, (cx, cy), 5, (255, 0, 0), -1)  # Draw centroid for debugging
 
-        print(moments["m00"])
+            print(moments["m00"])
     
         # Control logic for line following
             frame_center = width // 2
