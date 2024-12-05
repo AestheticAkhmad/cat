@@ -22,14 +22,24 @@ straight_speed = 0x7FFF
 # Turn function
 def turn(robot, angle):
     """Turns the robot based on the angle."""
+    omega = math.pi
+    t = abs(rad_angle / omega)
+
+    rad_angle = angle * (math.pi/180)
+    print(rad_angle)
+
     if angle < 0:
-        print(f"Turning Left by {abs(angle):.2f} degrees")
+        #print(f"Turning Left by {abs(angle):.2f} degrees")
         robot.move_speed = turn_speed
-        robot.turnLeft()
+        curr_time = time.time()
+        while time.time() - curr_time < t:
+            robot.turnLeft()
     elif angle > 0:
         print(f"Turning Right by {angle:.2f} degrees")
         robot.move_speed = turn_speed
-        robot.turnRight()
+        curr_time = time.time()
+        while time.time() - curr_time < t:
+            robot.turnRight()
     else:
         print("No Turn Needed")
     time.sleep(0.2)  # Adjust the sleep time for precise control
