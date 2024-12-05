@@ -28,6 +28,7 @@ try:
 
         # Thresholding to detect black line
         _, binary = cv2.threshold(roi, 60, 255, cv2.THRESH_BINARY)
+        print(binary)
 
         # Calculate centroid of the white region (black line)
         moments = cv2.moments(binary)
@@ -36,7 +37,7 @@ try:
             cx = int(moments["m10"] / moments["m00"])
             cy = int(moments["m01"] / moments["m00"])
             cv2.circle(roi, (cx, cy), 5, (255, 0, 0), -1)  # Draw centroid for debugging
-
+    
         # Control logic for line following
             frame_center = width // 2
             if cx > 0:
