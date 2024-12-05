@@ -67,9 +67,10 @@ try:
             cx = int(moments["m10"] / moments["m00"])
             cy = int(moments["m01"] / moments["m00"])
             cv2.circle(roi, (cx, cy), 5, (255, 0, 0), -1)  # Draw centroid for debugging
+            print("Centroid: ", cx)
 
             # Control logic for line following
-            frame_center = width // 2
+            frame_center = width // 2 + offset
             offset = cx - frame_center  # Offset from center of the frame
             print(f"Offset: {offset}")
 
@@ -87,7 +88,6 @@ try:
         else:
             print("No line detected, stopping.")
             robot.stopcar()
-            time.sleep(0.5)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
