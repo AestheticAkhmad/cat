@@ -29,7 +29,7 @@ def turn(robot, angle):
     t = abs(rad_angle / omega)
 
     if angle < 0:
-        #print(f"Turning Left by {abs(angle):.2f} degrees")
+        print(f"Turning Left by {abs(angle):.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
