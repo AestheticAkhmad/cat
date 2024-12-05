@@ -12,7 +12,7 @@ picam2.start()
 frame_rate = 30
 video_duration = 15
 frame_width, frame_height = 640, 480
-
+i = 0
 # Recording loop
 start_time = time.time()
 try:
@@ -29,6 +29,12 @@ try:
         # Thresholding to detect black line
         binary = cv2.adaptiveThreshold(roi, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 6)
         print(binary)
+        if cv2.imwrite(f'binary_output{i}.png', binary):
+            print("Image saved successfully!")
+        else:
+            print("Failed to save the image.")
+        
+        i += 1
 
         # Calculate centroid of the white region (black line)
         moments = cv2.moments(binary)
