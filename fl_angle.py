@@ -24,7 +24,7 @@ def turn(robot, angle):
     """Turns the robot based on the angle."""
 
     rad_angle = angle * (math.pi/180)
-    print(rad_angle)
+    #print(rad_angle)
     omega = math.pi
     t = abs(rad_angle / omega)
 
@@ -78,7 +78,7 @@ try:
             print(f"Estimated Angle: {angle:.2f} degrees")
 
             # Turn or go straight based on the angle
-            if abs(angle) < 15:  # Small angle -> Go straight
+            if abs(angle) < 30:  # Small angle -> Go straight
                 robot.move_speed = straight_speed
                 print("Go Straight")
             else:  # Larger angle -> Turn
