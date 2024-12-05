@@ -33,13 +33,13 @@ def turn(robot, angle):
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
-            robot.turnLeft()
+            robot.turnRight()
     elif angle > 0:
         print(f"Turning Right by {angle:.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
-            robot.turnRight()
+            robot.turnLeft()
     else:
         print("No Turn Needed")
     time.sleep(0.2)  # Adjust the sleep time for precise control
