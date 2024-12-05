@@ -4,7 +4,7 @@ from moving_forward import Robot
 robot = Robot()
 
 current_time = time.time()
-while time.time() - current_time < 1:
+while time.time() - current_time < 0.5:
     robot.turnRight()
 
 robot.stopcar()
