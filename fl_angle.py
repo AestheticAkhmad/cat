@@ -83,6 +83,7 @@ try:
             # Turn or go straight based on the angle
             if abs(angle) < 45:  # Small angle -> Go straight
                 robot.move_speed = straight_speed
+                robot.forward()
                 print("Go Straight")
             else:  # Larger angle -> Turn
                 turn(robot, angle)
