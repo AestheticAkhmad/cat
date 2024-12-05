@@ -27,7 +27,7 @@ try:
         time.sleep(0.25)
 
         # Thresholding to detect black line
-        _, binary = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 6)
+        binary = cv2.adaptiveThreshold(roi, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 21, 6)
         print(binary)
 
         # Calculate centroid of the white region (black line)
