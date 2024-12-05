@@ -52,16 +52,16 @@ try:
 
                 if offset >= -5 and offset <= 5:
                     robot.move_speed = 0x7FFF
-                    robot.forward()
+                    #robot.forward()
                     print("Go Straight")
                 elif offset < -5:
+                    robot.move_speed = 0x5FFF
+                    #robot.turnRight()
                     print("Turn Left")
-                    robot.move_speed = 0x5FFF
-                    robot.turnRight()
                 elif offset > 5:
-                    print("Turn Right")
                     robot.move_speed = 0x5FFF
-                    robot.turnLeft()
+                    #robot.turnLeft()
+                    print("Turn Right")
             else:
                 time.sleep(0.5)
                 robot.stopcar()
