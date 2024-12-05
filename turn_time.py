@@ -3,9 +3,8 @@ from moving_forward import Robot
 
 robot = Robot()
 
-start_time = time.time()
-robot.turnRight()
-end_time = time.time()
+current_time = time.time()
+while time.time() - current_time < 1:
+    robot.turnRight()
 
-execution_time = end_time - start_time
-print(f"Execution time: {execution_time:.4f} seconds")
+robot.stopcar()
