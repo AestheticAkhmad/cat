@@ -49,11 +49,11 @@ try:
                     print("Go Straight")
                 elif offset < -5:
                     print("Turn Left")
-                    robot.move_speed = 0x4FFF
+                    robot.move_speed = 0x6FFF
                     robot.turnRight()
                 elif offset > 5:
                     print("Turn Right")
-                    robot.move_speed = 0x4FFF
+                    robot.move_speed = 0x6FFF
                     robot.turnLeft()
             else:
                 time.sleep(0.5)
