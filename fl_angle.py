@@ -25,7 +25,7 @@ def turn(robot, angle):
 
     rad_angle = angle * (math.pi/180)
     #print(rad_angle)
-    omega = math.pi/2
+    omega = math.pi*2
     t = abs(rad_angle / omega)
     print("turning time: ", t)
 
