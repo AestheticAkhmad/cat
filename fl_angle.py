@@ -35,16 +35,16 @@ def turn(robot, angle):
         curr_time = time.time()
         while time.time() - curr_time < t:
             #robot.pwm.channels[robot.ENA].duty_cycle = 0x5FFF + 0x1FFF
-            robot.turnRight()
-            #robot.turnLeft()
+            #robot.turnRight()
+            robot.turnLeft()
     elif rad_angle > 0:
         print(f"Turning Right by {rad_angle:.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
             #robot.pwm.channels[robot.ENB].duty_cycle = 0x5FFF + 0x1FFF
-            robot.turnLeft()
-            #robot.turnRight()
+            #robot.turnLeft()
+            robot.turnRight()
     else:
         print("No Turn Needed")
     time.sleep(0.2)  # Adjust the sleep time for precise control
@@ -62,8 +62,8 @@ try:
 
         # Define Region of Interest (ROI)
         height, width = gray.shape
-        #roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
-        roi = gray  # Bottom third of the frame
+        roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
+        #roi = gray  # Bottom third of the frame
         #print(roi)
         
         # Thresholding to detect black line
