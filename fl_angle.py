@@ -27,7 +27,7 @@ def turn(robot, angle):
     rad_angle = angle * (math.pi/180)
     #print(rad_angle)
     omega = math.pi*4
-    t = abs(rad_angle / omega) - 0.05
+    t = abs(rad_angle / omega) - 0.075
     print("turning time: ", t)
 
     if rad_angle < 0:
@@ -62,7 +62,7 @@ try:
 
         # Define Region of Interest (ROI)
         height, width = gray.shape
-        roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
+        roi = gray[int(height * 1 / 3):int(height), :]  # Bottom third of the frame
         #roi = gray  # Bottom third of the frame
         #print(roi)
         
@@ -94,7 +94,7 @@ try:
 
             # Turn or go straight based on the angle
             #if abs(angle_norm) < 1.5:  # Small angle -> Go straight
-            if abs(offset) < 70:
+            if abs(offset) < 65:
                 robot.move_speed = straight_speed
                 robot.forward()
                 print("Go Straight")
