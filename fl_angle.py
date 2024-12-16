@@ -15,7 +15,7 @@ video_duration = 15
 frame_width, frame_height = 640, 480
 
 # Robot parameters
-distance_to_line = 5  # Ground distance in cm, calibrated for 45-degree camera angle
+distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
 turn_speed = 0x5FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
