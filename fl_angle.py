@@ -3,6 +3,7 @@ from picamera2 import Picamera2
 import time
 import math
 from moving_forward import Robot
+import numpy as np
 
 robot = Robot()
 
@@ -23,10 +24,10 @@ straight_speed = 0x7FFF
 def turn(robot, angle):
     """Turns the robot based on the angle."""
 
-    rad_angle = angle * (math.pi/180)
+    #rad_angle = angle * (math.pi/180)
     #print(rad_angle)
     omega = math.pi*4
-    t = abs(rad_angle / omega)
+    t = abs(angle / omega)
     print("turning time: ", t)
 
     if angle < 0:
@@ -80,16 +81,17 @@ try:
 
             # Estimate the turn angle using offset and distance_to_line
             angle = math.degrees(math.atan2(offset, distance_to_line))
-            angle = angle
-            print(f"Estimated Angle: {angle:.2f} degrees")
+            #angle = angle
+            angle_norm = np.arctan2(np.sin(angle), np.cos(angle))
+            print(f"Estimated Angle: {angle_norm:.2f} degrees")
 
             # Turn or go straight based on the angle
-            if abs(angle) < 25 or abs(offset) < 45:  # Small angle -> Go straight
+            if abs(angle_norm) < 0.1:  # Small angle -> Go straight
                 robot.move_speed = straight_speed
                 robot.forward()
                 print("Go Straight")
             else:  # Larger angle -> Turn
-                turn(robot, angle)
+                turn(robot, angle_norm)
 
         else:
             print("No line detected, stopping.")
