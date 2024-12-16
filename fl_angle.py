@@ -62,7 +62,7 @@ try:
 
         # Define Region of Interest (ROI)
         height, width = gray.shape
-        roi = gray[int(height * 1 / 3):int(height), :]  # Bottom third of the frame
+        roi = gray[int(height * 1 / 3):int(height * 2 / 3), :]  # Bottom third of the frame
         #roi = gray  # Bottom third of the frame
         #print(roi)
         
