@@ -86,7 +86,7 @@ try:
             print(f"Estimated Angle: {angle_norm:.2f} degrees")
 
             # Turn or go straight based on the angle
-            if abs(angle_norm) < 0.1:  # Small angle -> Go straight
+            if abs(angle_norm) < 1.5:  # Small angle -> Go straight
                 robot.move_speed = straight_speed
                 robot.forward()
                 print("Go Straight")
