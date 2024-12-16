@@ -84,7 +84,7 @@ try:
             offset = cx - frame_center  # Offset from center of the frame
             print(f"Offset: {offset}")
 
-            kp = 0.5
+            kp = 0.2
             # Estimate the turn angle using offset and distance_to_line
             angle = kp * math.degrees(math.atan2(offset, distance_to_line))
             #angle = angle
