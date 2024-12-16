@@ -65,9 +65,10 @@ try:
         #roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
         roi = gray  # Bottom third of the frame
         print(roi)
-        roi = np.where(roi == 0, 1, 0).astype(roi.dtype)
+        
         # Thresholding to detect black line
         _, binary = cv2.threshold(roi, 60, 255, cv2.THRESH_BINARY)
+        binary = np.where(binary == 0, 1, 0).astype(binary.dtype)
 
         # Calculate centroid of the white region (black line)
         moments = cv2.moments(binary)
