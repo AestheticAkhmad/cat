@@ -82,6 +82,11 @@ try:
             # Estimate the turn angle using offset and distance_to_line
             angle = math.degrees(math.atan2(offset, distance_to_line))
             #angle = angle
+            if angle > 0:
+                angle -= 73
+            else:
+                angle += 73
+                
             angle_norm = np.arctan2(np.sin(angle), np.cos(angle))
             print(f"Estimated Angle: {angle_norm:.2f} degrees")
 
