@@ -50,6 +50,8 @@ def turn(robot, angle):
     time.sleep(0.2)  # Adjust the sleep time for precise control
     robot.stopcar()
 
+angle_sum = 0
+counter = 0
 # Recording loop
 start_time = time.time()
 try:
@@ -86,12 +88,15 @@ try:
                 angle -= 73
             else:
                 angle += 73
-                
+
             angle_norm = np.arctan2(np.sin(angle), np.cos(angle))
             print(f"Estimated Angle: {angle_norm:.2f} degrees")
+            angle_sum += angle_norm
+            counter += 1
 
             # Turn or go straight based on the angle
-            if abs(angle_norm) < 1.5:  # Small angle -> Go straight
+            #if abs(angle_norm) < 1.5:  # Small angle -> Go straight
+            if abs(offset) < 9:
                 robot.move_speed = straight_speed
                 robot.forward()
                 print("Go Straight")
@@ -109,3 +114,6 @@ finally:
     picam2.stop()
     cv2.destroyAllWindows()
     print("Driving done!")
+
+
+print(angle_sum / counter)
