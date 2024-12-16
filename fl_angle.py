@@ -62,7 +62,7 @@ try:
 
         # Define Region of Interest (ROI)
         height, width = gray.shape
-        roi = gray[int(height * 1 / 3):int(height * 2 / 3), :]  # Bottom third of the frame
+        roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
         #roi = gray  # Bottom third of the frame
         #print(roi)
         
@@ -84,8 +84,9 @@ try:
             offset = cx - frame_center  # Offset from center of the frame
             print(f"Offset: {offset}")
 
+            kp = 0.5
             # Estimate the turn angle using offset and distance_to_line
-            angle = math.degrees(math.atan2(offset, distance_to_line))
+            angle = kp * math.degrees(math.atan2(offset, distance_to_line))
             #angle = angle
             
             print(f"Estimated Angle: {angle:.2f} degrees")
