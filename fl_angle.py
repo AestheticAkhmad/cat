@@ -24,21 +24,21 @@ straight_speed = 0x7FFF
 def turn(robot, angle):
     """Turns the robot based on the angle."""
 
-    #rad_angle = angle * (math.pi/180)
+    rad_angle = angle * (math.pi/180)
     #print(rad_angle)
     omega = math.pi*4
-    t = abs(angle / omega)
+    t = abs(rad_angle / omega)
     print("turning time: ", t)
 
-    if angle < 0:
-        print(f"Turning Left by {abs(angle):.2f} degrees")
+    if rad_angle < 0:
+        print(f"Turning Left by {abs(rad_angle):.2f} degrees")
         curr_time = time.time()
         while time.time() - curr_time < t:
             #robot.pwm.channels[robot.ENA].duty_cycle = 0x5FFF + 0x1FFF
             robot.turnRight()
             #robot.turnLeft()
-    elif angle > 0:
-        print(f"Turning Right by {angle:.2f} degrees")
+    elif rad_angle > 0:
+        print(f"Turning Right by {rad_angle:.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
@@ -64,7 +64,7 @@ try:
         height, width = gray.shape
         #roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
         roi = gray  # Bottom third of the frame
-        print(roi)
+        #print(roi)
         
         # Thresholding to detect black line
         _, binary = cv2.threshold(roi, 60, 255, cv2.THRESH_BINARY)
@@ -87,24 +87,19 @@ try:
             # Estimate the turn angle using offset and distance_to_line
             angle = math.degrees(math.atan2(offset, distance_to_line))
             #angle = angle
-            if angle > 0:
-                angle -= 73
-            else:
-                angle += 73
-
-            angle_norm = np.arctan2(np.sin(angle), np.cos(angle))
-            print(f"Estimated Angle: {angle_norm:.2f} degrees")
-            angle_sum += angle_norm
+            
+            print(f"Estimated Angle: {angle:.2f} degrees")
+            angle_sum += angle
             counter += 1
 
             # Turn or go straight based on the angle
             #if abs(angle_norm) < 1.5:  # Small angle -> Go straight
-            if abs(offset) < 9:
+            if abs(offset) < 50:
                 robot.move_speed = straight_speed
                 robot.forward()
                 print("Go Straight")
             else:  # Larger angle -> Turn
-                turn(robot, angle_norm)
+                turn(robot, angle)
 
         else:
             print("No line detected, stopping.")
