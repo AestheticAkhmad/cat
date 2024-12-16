@@ -34,14 +34,16 @@ def turn(robot, angle):
         curr_time = time.time()
         while time.time() - curr_time < t:
             #robot.pwm.channels[robot.ENA].duty_cycle = 0x5FFF + 0x1FFF
-            robot.turnRight()
+            #robot.turnRight()
+            robot.turnLeft()
     elif angle > 0:
         print(f"Turning Right by {angle:.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
             #robot.pwm.channels[robot.ENB].duty_cycle = 0x5FFF + 0x1FFF
-            robot.turnLeft()
+            #robot.turnLeft()
+            robot.turnRight()
     else:
         print("No Turn Needed")
     time.sleep(0.2)  # Adjust the sleep time for precise control
@@ -78,6 +80,7 @@ try:
 
             # Estimate the turn angle using offset and distance_to_line
             angle = math.degrees(math.atan2(offset, distance_to_line))
+            angle = angle / 10
             print(f"Estimated Angle: {angle:.2f} degrees")
 
             # Turn or go straight based on the angle
