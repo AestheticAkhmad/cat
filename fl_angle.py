@@ -17,7 +17,7 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
-turn_speed = 0x6FFF     # Adjust speed for turning
+turn_speed = 0x7FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
 # Turn function
@@ -34,7 +34,7 @@ def turn(robot, angle):
         print(f"Turning Left by {abs(rad_angle):.2f} degrees")
         curr_time = time.time()
         while time.time() - curr_time < t:
-            robot.pwm.channels[robot.ENA].duty_cycle = 0x4FFF
+            robot.pwm.channels[robot.ENA].duty_cycle = 0x3FFF
             #robot.turnRight()
             robot.turnLeft()
     elif rad_angle > 0:
@@ -42,12 +42,12 @@ def turn(robot, angle):
         robot.move_speed = turn_speed
         curr_time = time.time()
         while time.time() - curr_time < t:
-            robot.pwm.channels[robot.ENB].duty_cycle = 0x4FFF
+            robot.pwm.channels[robot.ENB].duty_cycle = 0x3FFF
             #robot.turnLeft()
             robot.turnRight()
     else:
         print("No Turn Needed")
-    time.sleep(0.005)  # Adjust the sleep time for precise control
+    time.sleep(0.008)  # Adjust the sleep time for precise control
     robot.stopcar()
 
 angle_sum = 0
