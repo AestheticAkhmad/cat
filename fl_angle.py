@@ -32,14 +32,14 @@ def turn(robot, angle):
     if angle < 0:
         print(f"Turning Left by {abs(angle):.2f} degrees")
         curr_time = time.time()
-        while time.time() - curr_time < t - 0.25:
+        while time.time() - curr_time < t - 0.025:
             #robot.pwm.channels[robot.ENA].duty_cycle = 0x5FFF + 0x1FFF
             robot.turnRight()
     elif angle > 0:
         print(f"Turning Right by {angle:.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
-        while time.time() - curr_time < t - 0.25:
+        while time.time() - curr_time < t - 0.025:
             #robot.pwm.channels[robot.ENB].duty_cycle = 0x5FFF + 0x1FFF
             robot.turnLeft()
     else:
