@@ -59,8 +59,8 @@ try:
 
         # Define Region of Interest (ROI)
         height, width = gray.shape
-        roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
-        #roi = gray  # Bottom third of the frame
+        #roi = gray[int(height * 2 / 3):, :]  # Bottom third of the frame
+        roi = gray  # Bottom third of the frame
         # Thresholding to detect black line
         _, binary = cv2.threshold(roi, 60, 255, cv2.THRESH_BINARY)
 
