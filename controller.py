@@ -80,6 +80,8 @@ try:
             # Adjust motor speeds
             left_speed = base_speed + speed_correction
             right_speed = base_speed - speed_correction
+
+            print(left_speed, " ", right_speed)
             
             # Send commands to the robot
             robot.changespeed(left_speed, right_speed)
