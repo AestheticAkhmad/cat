@@ -78,8 +78,8 @@ try:
             speed_correction = PID_speed.update(error - prev_error)
             
             # Adjust motor speeds
-            left_speed = base_speed + speed_correction
-            right_speed = base_speed - speed_correction
+            left_speed = int(base_speed + speed_correction)
+            right_speed = int(base_speed - speed_correction)
 
             print(left_speed, " ", right_speed)
             
