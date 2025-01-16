@@ -24,7 +24,7 @@ turn_speed = 0x6FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 10000, 0.3, 0.1
+Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
 Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # Helper function: preprocess the image
@@ -80,8 +80,8 @@ try:
             print(f"Speed correction: {speed_correction}")
             
             # Adjust motor speeds
-            left_speed = int(base_speed + speed_correction)
-            right_speed = int(base_speed - speed_correction)
+            left_speed = int(base_speed - direction_speed + speed_correction)
+            right_speed = int(base_speed + direction_speed - speed_correction)
 
             print(left_speed, " ", right_speed)
             
