@@ -40,7 +40,7 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		GPIO.output(self.LEFT_FRONT, GPIO.LOW)
 		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
 		GPIO.output(self.RIGHT_FRONT, GPIO.LOW)
-		self.changespeed(0)
+		self.changespeed(0, 0)
 
 	def backward(self):
 		GPIO.output(IN1, GPIO.HIGH)
