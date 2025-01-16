@@ -15,11 +15,11 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 25
+video_duration = 10
 frame_width, frame_height = 640, 480
 
 # Robot parameters
-distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
+distance_to_line = 9  # Ground distance in cm, calibrated for 45-degree camera angle
 turn_speed = 0x6FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
@@ -56,8 +56,6 @@ PID_speed = PIDController(Kp_spd, Ki_spd, Kd_spd)
 frame_center = frame_width // 2
 base_speed = straight_speed
 prev_error = 0
-angle_sum = 0
-counter = 0
 print("wtf")
 # Main loop
 start_time = time.time()
@@ -80,18 +78,14 @@ try:
             print(f"Speed correction: {speed_correction}")
             
             # Adjust motor speeds
-            left_speed = int(base_speed - direction_speed + speed_correction)
-            right_speed = int(base_speed + direction_speed - speed_correction)
+            left_speed = int(base_speed + direction_speed)
+            right_speed = int(base_speed - direction_speed)
 
             print(left_speed, " ", right_speed)
             
             # Send commands to the robot
             robot.changespeed(left_speed, right_speed)
             robot.forward()
-            
-            # Update angle sum and counter for analysis
-            angle_sum += math.atan2(error, distance_to_line)
-            counter += 1
             
             # Store the previous error
             prev_error = error
@@ -108,5 +102,3 @@ finally:
     cv2.destroyAllWindows()
     robot.stopcar()
     print("Driving done!")
-    if counter > 0:
-        print(f"Average steering angle: {angle_sum / counter:.2f} radians")
