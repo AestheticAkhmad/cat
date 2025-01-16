@@ -24,7 +24,7 @@ turn_speed = 0x6FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 1.1, 0.3, 0.1
+Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
 Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # Helper function: preprocess the image
@@ -58,7 +58,7 @@ base_speed = straight_speed
 prev_error = 0
 angle_sum = 0
 counter = 0
-
+print("wtf")
 # Main loop
 start_time = time.time()
 try:
