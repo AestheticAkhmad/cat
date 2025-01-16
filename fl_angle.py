@@ -99,10 +99,12 @@ try:
                 robot.forward()
                 print("Go Straight")
             else:  # Larger angle -> Turn
-                if abs(offset) > 65:
+                if abs(offset) > 60:
                     straight_speed = 0x5FFF
+                    turn_speed = 0x3FFF
                 else:
                     straight_speed = 0x8FFF
+                    turn_speed = 0x4FFF
                 turn(robot, angle)
 
         else:
