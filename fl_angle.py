@@ -18,7 +18,7 @@ frame_width, frame_height = 640, 480
 # Robot parameters
 distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
 turn_speed = 0x7FFF     # Adjust speed for turning
-straight_speed = 0x9FFF
+straight_speed = 0xAFFF
 
 # Turn function
 def turn(robot, angle):
@@ -33,17 +33,16 @@ def turn(robot, angle):
     if rad_angle < 0:
         print(f"Turning Left by {abs(rad_angle):.2f} degrees")
         curr_time = time.time()
+        robot.changespeed(turn_speed, straight_speed)
         while time.time() - curr_time < t:
-            #robot.pwm.channels[robot.ENA].duty_cycle = 0x6FFF
-            robot.pwm.channels[robot.ENB].duty_cycle = 0x4FFF
             robot.turnLeft()
+        
     elif rad_angle > 0:
         print(f"Turning Right by {rad_angle:.2f} degrees")
         robot.move_speed = turn_speed
         curr_time = time.time()
+        robot.changespeed(straight_speed, turn_speed)
         while time.time() - curr_time < t:
-            # robot.pwm.channels[robot.ENB].duty_cycle = 0x6FFF
-            robot.pwm.channels[robot.ENA].duty_cycle = 0x4FFF
             robot.turnRight()
     else:
         print("No Turn Needed")
@@ -96,7 +95,7 @@ try:
             # Turn or go straight based on the angle
             #if abs(angle_norm) < 1.5:  # Small angle -> Go straight
             if abs(offset) < 65:
-                robot.move_speed = straight_speed
+                robot.changespeed(straight_speed, straight_speed)
                 robot.forward()
                 print("Go Straight")
             else:  # Larger angle -> Turn
