@@ -17,7 +17,7 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
-turn_speed = 0x2FFF     # Adjust speed for turning
+turn_speed = 0x4FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
 # Turn function
@@ -27,7 +27,7 @@ def turn(robot, angle):
     rad_angle = angle * (math.pi/180)
     #print(rad_angle)
     omega = math.pi*4
-    t = abs(rad_angle / omega) - 0.075
+    t = abs(rad_angle / omega) - 0.065
     print("turning time: ", t)
 
     if rad_angle < 0:
