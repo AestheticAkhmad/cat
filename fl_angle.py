@@ -102,7 +102,7 @@ try:
             else:  # Larger angle -> Turn
                 if abs(offset) >= 65:
                     straight_speed = 0x6FFF
-                    turn_speed = 0x4FFF
+                    turn_speed = 0x2FFF
                 else:
                     straight_speed = 0x8FFF
                     turn_speed = 0x4FFF
