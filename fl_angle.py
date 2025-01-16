@@ -46,7 +46,7 @@ def turn(robot, angle):
             robot.turnRight()
     # else:
     #     #print("No Turn Needed")
-    #time.sleep(0.002)  # Adjust the sleep time for precise control
+    time.sleep(0.002)  # Adjust the sleep time for precise control
     #robot.stopcar()
 
 angle_sum = 0
