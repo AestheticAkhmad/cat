@@ -18,7 +18,7 @@ frame_width, frame_height = 640, 480
 # Robot parameters
 distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
 turn_speed = 0x4FFF     # Adjust speed for turning
-straight_speed = 0x7FFF
+straight_speed = 0x8FFF
 
 # Turn function
 def turn(robot, angle):
@@ -99,6 +99,10 @@ try:
                 robot.forward()
                 print("Go Straight")
             else:  # Larger angle -> Turn
+                if abs(offset) > 65:
+                    straight_speed = 0x5FFF
+                else:
+                    straight_speed = 0x8FFF
                 turn(robot, angle)
 
         else:
