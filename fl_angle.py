@@ -27,7 +27,7 @@ def turn(robot, angle):
     rad_angle = angle * (math.pi/180)
     #print(rad_angle)
     omega = math.pi*4
-    t = abs(rad_angle / omega) - 0.045
+    t = abs(rad_angle / omega) - 0.075
     print("turning time: ", t)
 
     if rad_angle < 0:
@@ -101,7 +101,7 @@ try:
                 print("Go Straight")
             else:  # Larger angle -> Turn
                 if abs(offset) > 65:
-                    straight_speed = 0x5FFF
+                    straight_speed = 0x7FFF
                     turn_speed = 0x3FFF
                 else:
                     straight_speed = 0x8FFF
