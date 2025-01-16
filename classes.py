@@ -32,8 +32,10 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 	#define L298N(Model-Pi motor drive board) GPIO pins
 
 	def changespeed(self, leftSpeed, rightSpeed):
-		self.pwm.channels[self.ENB].duty_cycle = rightSpeed
-		self.pwm.channels[self.ENA].duty_cycle = leftSpeed
+		# self.pwm.channels[self.ENA].duty_cycle = leftSpeed
+		# self.pwm.channels[self.ENB].duty_cycle = rightSpeed
+		self.pwm.channels[self.ENA].duty_cycle = rightSpeed
+		self.pwm.channels[self.ENB].duty_cycle = leftSpeed
 
 	def stopcar(self):
 		GPIO.output(self.LEFT_BACK, GPIO.LOW)
