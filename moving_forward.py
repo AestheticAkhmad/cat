@@ -31,9 +31,9 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 	GPIO.setwarnings(False)
 	#define L298N(Model-Pi motor drive board) GPIO pins
 
-	def changespeed(self, speed):
-		self.pwm.channels[self.ENA].duty_cycle = speed
-		self.pwm.channels[self.ENB].duty_cycle = speed
+	def changespeed(self, leftSpeed, rightSpeed):
+		self.pwm.channels[self.ENA].duty_cycle = leftSpeed
+		self.pwm.channels[self.ENB].duty_cycle = rightSpeed
 
 	def stopcar(self):
 		GPIO.output(self.LEFT_BACK, GPIO.LOW)
@@ -54,23 +54,22 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 		GPIO.output(self.LEFT_FRONT, GPIO.HIGH)
 		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
 		GPIO.output(self.RIGHT_FRONT, GPIO.HIGH)
-		self.changespeed(self.move_speed)
+		#self.changespeed(self.move_speed)
 		#time.sleep(0.75)
 
 	def turnRight(self):
 		GPIO.output(self.LEFT_BACK, GPIO.LOW)
-		#print(GPIO.HIGH)
 		GPIO.output(self.LEFT_FRONT, GPIO.HIGH)
 		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
-		GPIO.output(self.RIGHT_FRONT, GPIO.LOW)
-		self.changespeed(self.move_speed)
+		GPIO.output(self.RIGHT_FRONT, GPIO.HIGH)
+		#self.changespeed(self.move_speed)
 		#time.sleep(0.35)
 		
 	def turnLeft(self):
 		GPIO.output(self.LEFT_BACK, GPIO.LOW)
-		GPIO.output(self.LEFT_FRONT, GPIO.LOW)
+		GPIO.output(self.LEFT_FRONT, GPIO.HIGH)
 		GPIO.output(self.RIGHT_BACK, GPIO.LOW)
 		GPIO.output(self.RIGHT_FRONT, GPIO.HIGH)
-		self.changespeed(self.move_speed)
+		#self.changespeed(self.move_speed)
 		#time.sleep(0.35)
 
