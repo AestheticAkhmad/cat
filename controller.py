@@ -85,6 +85,7 @@ try:
             
             # Send commands to the robot
             robot.changespeed(left_speed, right_speed)
+            robot.forward()
             
             # Update angle sum and counter for analysis
             angle_sum += math.atan2(error, distance_to_line)
