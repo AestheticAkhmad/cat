@@ -101,7 +101,7 @@ try:
                 print("Go Straight")
             else:  # Larger angle -> Turn
                 if abs(offset) > 65:
-                    straight_speed = 0x7FFF
+                    straight_speed = 0x5FFF
                     turn_speed = 0x3FFF
                 else:
                     straight_speed = 0x8FFF
