@@ -12,13 +12,13 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 25
+video_duration = 300
 frame_width, frame_height = 640, 480
 
 # Robot parameters
 distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
-turn_speed = 0x6FFF     # Adjust speed for turning
-straight_speed = 0x7FFF
+turn_speed = 0x7FFF     # Adjust speed for turning
+straight_speed = 0x9FFF
 
 # Turn function
 def turn(robot, angle):
