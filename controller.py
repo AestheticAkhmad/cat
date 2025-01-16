@@ -41,7 +41,7 @@ def preprocess_image(frame):
 
     contours = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = contours[0] if len(contours) == 2 else contours[1]
-    print(contours)
+    #print(contours)
     largest = max(contours, key=cv2.contourArea)
     M = cv2.moments(largest)
     if M["m00"] != 0:
@@ -76,6 +76,8 @@ try:
             # Update PID controllers
             direction_speed = PID_direction.update(error)
             speed_correction = PID_speed.update(error - prev_error)
+            print(f"Direction speed: {direction_speed}")
+            print(f"Speed correction: {speed_correction}")
             
             # Adjust motor speeds
             left_speed = int(base_speed + speed_correction)
