@@ -18,7 +18,7 @@ frame_width, frame_height = 640, 480
 # Robot parameters
 distance_to_line = 12  # Ground distance in cm, calibrated for 45-degree camera angle
 turn_speed = 0x7FFF     # Adjust speed for turning
-straight_speed = 0xAFFF
+straight_speed = 0x8FFF
 
 # Turn function
 def turn(robot, angle):
