@@ -27,7 +27,7 @@ def turn(robot, angle):
     rad_angle = angle * (math.pi/180)
     #print(rad_angle)
     omega = math.pi*4
-    t = abs(rad_angle / omega) - 0.025
+    t = abs(rad_angle / omega) - 0.015
     print("turning time: ", t)
 
     if rad_angle < 0:
@@ -44,10 +44,10 @@ def turn(robot, angle):
         robot.changespeed(straight_speed, turn_speed)
         while time.time() - curr_time < t:
             robot.turnRight()
-    else:
-        print("No Turn Needed")
-    time.sleep(0.008)  # Adjust the sleep time for precise control
-    robot.stopcar()
+    # else:
+    #     #print("No Turn Needed")
+    #time.sleep(0.002)  # Adjust the sleep time for precise control
+    #robot.stopcar()
 
 angle_sum = 0
 counter = 0
@@ -76,12 +76,12 @@ try:
             cx = int(moments["m10"] / moments["m00"])
             cy = int(moments["m01"] / moments["m00"])
             cv2.circle(roi, (cx, cy), 5, (255, 0, 0), -1)  # Draw centroid for debugging
-            print("Centroid: ", cx)
+            #print("Centroid: ", cx)
 
             # Control logic for line following
             frame_center = width // 2
             offset = cx - frame_center  # Offset from center of the frame
-            print(f"Offset: {offset}")
+            #print(f"Offset: {offset}")
 
             kp = 0.8
             # Estimate the turn angle using offset and distance_to_line
@@ -98,18 +98,18 @@ try:
                 straight_speed = 0x8FFF
                 robot.changespeed(straight_speed, straight_speed)
                 robot.forward()
-                print("Go Straight")
+                #print("Go Straight")
             else:  # Larger angle -> Turn
-                if abs(offset) > 65:
-                    straight_speed = 0x5FFF
-                    turn_speed = 0x3FFF
+                if abs(offset) >= 65:
+                    straight_speed = 0x6FFF
+                    turn_speed = 0x4FFF
                 else:
                     straight_speed = 0x8FFF
                     turn_speed = 0x4FFF
                 turn(robot, angle)
 
         else:
-            print("No line detected, stopping.")
+            #print("No line detected, stopping.")
             robot.stopcar()
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
