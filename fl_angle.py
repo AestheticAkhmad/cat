@@ -95,6 +95,7 @@ try:
             # Turn or go straight based on the angle
             #if abs(angle_norm) < 1.5:  # Small angle -> Go straight
             if abs(offset) < 65:
+                straight_speed = 0x8FFF
                 robot.changespeed(straight_speed, straight_speed)
                 robot.forward()
                 print("Go Straight")
