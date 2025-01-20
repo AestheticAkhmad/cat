@@ -84,9 +84,24 @@ class PIDController:
         self.prev_error = 0
         self.integral = 0
 
-    def update(self, error):
-        self.integral += error
-        derivative = error - self.prev_error
-        output = (self.Kp * error) + (self.Ki * self.integral) + (self.Kd * derivative)
-        self.prev_error = error
-        return output
+	def update(self, error, dt=0.033):
+		# Update the integral term with anti-windup
+		self.integral += error * dt
+		max_integral = 100  # Adjust this based on your system's needs
+		self.integral = max(min(self.integral, max_integral), -max_integral)
+
+		# Calculate the derivative term
+		derivative = (error - self.prev_error) / dt
+
+		# Compute the PID output
+		output = (self.Kp * error) + (self.Ki * self.integral) + (self.Kd * derivative)
+
+		# Update the previous error
+		self.prev_error = error
+
+		# Optional: Debugging output
+		# print(f"Error: {error}, Integral: {self.integral}, Derivative: {derivative}, Output: {output}")
+
+		return output
+
+	
