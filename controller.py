@@ -80,11 +80,11 @@ try:
             print(f"Speed correction: {speed_correction}")
             
             # Adjust motor speeds
-            left_speed = int(base_speed + direction_speed - speed_correction)
-            right_speed = int(base_speed - direction_speed + speed_correction)
+            # left_speed = int(base_speed + direction_speed - speed_correction)
+            # right_speed = int(base_speed - direction_speed + speed_correction)
 
-            left_speed = max(0, min(base_speed, base_speed + direction_speed - speed_correction))
-            right_speed = max(0, min(base_speed, base_speed - direction_speed + speed_correction))
+            left_speed = int(max(0, min(base_speed, base_speed + direction_speed - speed_correction)))
+            right_speed = int(max(0, min(base_speed, base_speed - direction_speed + speed_correction)))
 
             print("Left, Right speeds: ", left_speed, " ", right_speed)
             
