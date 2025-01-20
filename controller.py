@@ -27,7 +27,7 @@ straight_speed = 0x4FFF
 # Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 0
+Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 10
 Kp_spd, Ki_spd, Kd_spd = 0.2, 2, 3
 
 # Helper function: preprocess the image
@@ -40,7 +40,7 @@ def preprocess_image(frame):
     
     # Thresholding to detect the black line
     _, binary = cv2.threshold(gray_blurred, 60, 255, cv2.THRESH_BINARY_INV)
-    #binary = np.where(binary == 0, 1, 0).astype(binary.dtype)
+    binary = np.where(binary == 0, 1, 0).astype(binary.dtype)
 
     contours = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = contours[0] if len(contours) == 2 else contours[1]
