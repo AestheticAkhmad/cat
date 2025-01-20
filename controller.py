@@ -20,7 +20,7 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 distance_to_line = 9  # Ground distance in cm, calibrated for 45-degree camera angle
-straight_speed = 0x4FFF
+straight_speed = 0x6FFF
 
 # # PID parameters
 # Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
