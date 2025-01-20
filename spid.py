@@ -60,10 +60,11 @@ try:
             # Calculate the PID output for direction control
             direction_speed = pid_direction(cx)
             print(f"Direction speed: {direction_speed}")
-
+            
             # Calculate motor speeds
-            left_speed = int(max(0, min(max_speed, straight_speed - direction_speed)))
-            right_speed = int(max(0, min(max_speed, straight_speed + direction_speed)))
+            turn_scale = 1.5
+            left_speed = int(max(0, min(max_speed, straight_speed - direction_speed*turn_scale)))
+            right_speed = int(max(0, min(max_speed, straight_speed + direction_speed*turn_scale)))
 
             print("L: ", straight_speed - direction_speed)
             print("R: ",straight_speed + direction_speed) 
