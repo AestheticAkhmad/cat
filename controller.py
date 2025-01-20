@@ -21,6 +21,7 @@ frame_width, frame_height = 640, 480
 # Robot parameters
 distance_to_line = 9  # Ground distance in cm, calibrated for 45-degree camera angle
 straight_speed = 0x6FFF
+max_speed = 0x9FFF
 
 # # PID parameters
 # Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
@@ -82,9 +83,9 @@ try:
             # Adjust motor speeds
             # left_speed = int(base_speed + direction_speed - speed_correction)
             # right_speed = int(base_speed - direction_speed + speed_correction)
-
-            left_speed = int(max(0, min(base_speed, base_speed + direction_speed - speed_correction)))
-            right_speed = int(max(0, min(base_speed, base_speed - direction_speed + speed_correction)))
+            turn_scale = 1.5
+            left_speed = int(max(0, min(max_speed, base_speed + direction_speed * turn_scale - speed_correction)))
+            right_speed = int(max(0, min(max_speed, base_speed - direction_speed * turn_scale + speed_correction)))
 
             print("Left, Right speeds: ", left_speed, " ", right_speed)
             
