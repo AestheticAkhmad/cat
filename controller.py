@@ -20,15 +20,15 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 distance_to_line = 9  # Ground distance in cm, calibrated for 45-degree camera angle
-straight_speed = 0x4FFF
+straight_speed = 0x2FFF
 
 # # PID parameters
 # Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
 # Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 1
-Kp_spd, Ki_spd, Kd_spd = 0.2, 2, 3
+Kp_dir, Ki_dir, Kd_dir = 1.0, 0.1, 0.5
+Kp_spd, Ki_spd, Kd_spd = 0.8, 0.05, 0.2
 
 # Helper function: preprocess the image
 def preprocess_image(frame):
@@ -82,6 +82,9 @@ try:
             # Adjust motor speeds
             left_speed = int(base_speed + direction_speed - speed_correction)
             right_speed = int(base_speed - direction_speed + speed_correction)
+
+            left_speed = max(0, min(base_speed, base_speed + direction_speed - speed_correction))
+            right_speed = max(0, min(base_speed, base_speed - direction_speed + speed_correction))
 
             print("Left, Right speeds: ", left_speed, " ", right_speed)
             
