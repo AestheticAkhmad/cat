@@ -83,7 +83,7 @@ try:
             # Adjust motor speeds
             # left_speed = int(base_speed + direction_speed - speed_correction)
             # right_speed = int(base_speed - direction_speed + speed_correction)
-            turn_scale = 1.5
+            turn_scale = 3.5
             left_speed = int(max(0, min(max_speed, base_speed + direction_speed * turn_scale - speed_correction)))
             right_speed = int(max(0, min(max_speed, base_speed - direction_speed * turn_scale + speed_correction)))
 
