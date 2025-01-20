@@ -23,7 +23,7 @@ straight_speed = 0x4FFF
 max_speed = 0x5FFF
 
 # PID parameters for direction control
-pid_direction = PID(Kp=10, Ki=0.05, Kd=35, setpoint=frame_width // 2)
+pid_direction = PID(Kp=10, Ki=0.005, Kd=25, setpoint=frame_width // 2)
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2)  # Limit output for motor adjustments
 
 # Helper function: preprocess the image
@@ -64,8 +64,8 @@ try:
             # Calculate motor speeds
             print("Cx: ", cx)
             turn_scale = 1.0
-            if cx < 100 or cx > 200:
-                turn_scale = 1.8
+            if cx < 80 or cx > 220:
+                turn_scale = 1.2
             
             left_speed = int(max(0, min(max_speed, straight_speed - direction_speed*turn_scale)))
             right_speed = int(max(0, min(max_speed, straight_speed + direction_speed*turn_scale)))
