@@ -40,7 +40,7 @@ def preprocess_image(frame):
     
     # Thresholding to detect the black line
     _, binary = cv2.threshold(gray_blurred, 60, 255, cv2.THRESH_BINARY_INV)
-    binary = np.where(binary == 0, 1, 0).astype(binary.dtype)
+    #binary = np.where(binary == 0, 1, 0).astype(binary.dtype)
 
     contours = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = contours[0] if len(contours) == 2 else contours[1]
