@@ -77,13 +77,13 @@ class Robot:# Initialise the PCA9685 using the default address (0x40).
 
 # PID Controller class
 class PIDController:
-    def __init__(self, Kp, Ki, Kd):
-        self.Kp = Kp
-        self.Ki = Ki
-        self.Kd = Kd
-        self.prev_error = 0
-        self.integral = 0
-
+	def __init__(self, Kp, Ki, Kd):
+		self.Kp = Kp
+		self.Ki = Ki
+		self.Kd = Kd
+		self.prev_error = 0
+		self.integral = 0
+		
 	def update(self, error, dt=0.033):
 		# Update the integral term with anti-windup
 		self.integral += error * dt
