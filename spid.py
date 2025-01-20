@@ -20,7 +20,7 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 straight_speed = 0x6FFF
-max_speed = 0x9FFF
+max_speed = 0x7FFF
 
 # PID parameters for direction control
 pid_direction = PID(Kp=3, Ki=5, Kd=30, setpoint=frame_width // 2)
