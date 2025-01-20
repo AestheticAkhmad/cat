@@ -27,7 +27,7 @@ straight_speed = 0x4FFF
 # Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 10
+Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 1
 Kp_spd, Ki_spd, Kd_spd = 0.2, 2, 3
 
 # Helper function: preprocess the image
@@ -72,7 +72,7 @@ try:
         if cx is not None:
             # Calculate the error
             error = frame_center - cx
-            
+            print("Error: ", error)
             # Update PID controllers
             direction_speed = PID_direction.update(error)
             speed_correction = PID_speed.update(error - prev_error)
