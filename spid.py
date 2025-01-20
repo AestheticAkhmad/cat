@@ -19,8 +19,8 @@ video_duration = 30
 frame_width, frame_height = 640, 480
 
 # Robot parameters
-straight_speed = 0x4FFF
-max_speed = 0x5FFF
+straight_speed = 0x6FFF
+max_speed = 0x7FFF
 
 # PID parameters for direction control
 pid_direction = PID(Kp=10, Ki=50, Kd=25, setpoint=frame_width // 2)
