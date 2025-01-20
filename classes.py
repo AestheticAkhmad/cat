@@ -83,13 +83,13 @@ class PIDController:
 		self.Kd = Kd
 		self.prev_error = 0
 		self.integral = 0
-		
+
 	def update(self, error, dt=0.033):
 		# Update the integral term with anti-windup
 		self.integral += error * dt
-		max_integral = 100  # Adjust this based on your system's needs
+		max_integral = 10  # Adjust this based on your system's needs
 		self.integral = max(min(self.integral, max_integral), -max_integral)
-
+		print("Integral: ", self.integral)
 		# Calculate the derivative term
 		derivative = (error - self.prev_error) / dt
 
