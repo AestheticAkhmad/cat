@@ -62,6 +62,8 @@ try:
             print(f"Direction speed: {direction_speed}")
             
             # Calculate motor speeds
+            print("Cx: ", cx)
+
             turn_scale = 1.5
             left_speed = int(max(0, min(max_speed, straight_speed - direction_speed*turn_scale)))
             right_speed = int(max(0, min(max_speed, straight_speed + direction_speed*turn_scale)))
