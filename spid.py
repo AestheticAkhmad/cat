@@ -65,7 +65,7 @@ try:
             print("Cx: ", cx)
             turn_scale = 1.0
             if cx < 100 or cx > 200:
-                turn_scale = 3
+                turn_scale = 1.5
             
             left_speed = int(max(0, min(max_speed, straight_speed - direction_speed*turn_scale)))
             right_speed = int(max(0, min(max_speed, straight_speed + direction_speed*turn_scale)))
