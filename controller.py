@@ -20,12 +20,15 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 distance_to_line = 9  # Ground distance in cm, calibrated for 45-degree camera angle
-turn_speed = 0x6FFF     # Adjust speed for turning
 straight_speed = 0x7FFF
 
+# # PID parameters
+# Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
+# Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
+
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 1.2, 0.3, 0.1
-Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
+Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 3
+Kp_spd, Ki_spd, Kd_spd = 0.2, 2, 3
 
 # Helper function: preprocess the image
 def preprocess_image(frame):
@@ -41,7 +44,6 @@ def preprocess_image(frame):
 
     contours = cv2.findContours(binary, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = contours[0] if len(contours) == 2 else contours[1]
-    #print(contours)
     largest = max(contours, key=cv2.contourArea)
     M = cv2.moments(largest)
     if M["m00"] != 0:
@@ -56,7 +58,7 @@ PID_speed = PIDController(Kp_spd, Ki_spd, Kd_spd)
 frame_center = frame_width // 2
 base_speed = straight_speed
 prev_error = 0
-print("wtf")
+
 # Main loop
 start_time = time.time()
 try:
@@ -78,10 +80,10 @@ try:
             print(f"Speed correction: {speed_correction}")
             
             # Adjust motor speeds
-            left_speed = int(base_speed + direction_speed)
-            right_speed = int(base_speed - direction_speed)
+            left_speed = int(base_speed + direction_speed - speed_correction)
+            right_speed = int(base_speed - direction_speed + speed_correction)
 
-            print(left_speed, " ", right_speed)
+            print("Left, Right speeds: ", left_speed, " ", right_speed)
             
             # Send commands to the robot
             robot.changespeed(left_speed, right_speed)
