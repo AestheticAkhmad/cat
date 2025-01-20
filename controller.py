@@ -27,7 +27,7 @@ straight_speed = 0x7FFF
 # Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 0.2, 2, 3
+Kp_dir, Ki_dir, Kd_dir = 0.2, 0, 0
 Kp_spd, Ki_spd, Kd_spd = 0.2, 2, 3
 
 # Helper function: preprocess the image
@@ -80,8 +80,8 @@ try:
             print(f"Speed correction: {speed_correction}")
             
             # Adjust motor speeds
-            left_speed = int(base_speed + direction_speed / speed_correction)
-            right_speed = int(base_speed - direction_speed / speed_correction)
+            left_speed = int(base_speed + direction_speed - speed_correction)
+            right_speed = int(base_speed - direction_speed + speed_correction)
 
             print("Left, Right speeds: ", left_speed, " ", right_speed)
             
