@@ -23,7 +23,7 @@ straight_speed = 0x4FFF
 max_speed = 0x5FFF
 
 # PID parameters for direction control
-pid_direction = PID(Kp=10, Ki=0.005, Kd=25, setpoint=frame_width // 2)
+pid_direction = PID(Kp=10, Ki=50, Kd=25, setpoint=frame_width // 2)
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2)  # Limit output for motor adjustments
 
 # Helper function: preprocess the image
