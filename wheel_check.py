@@ -7,7 +7,7 @@ import numpy as np
 robot = Robot()
 
 # Robot parameters
-left_speed = 0x1FFF     # Adjust speed for turning
+left_speed = 0x4FFF     # Adjust speed for turning
 right_speed = 0x8FFF
 video_duration = 10
 
