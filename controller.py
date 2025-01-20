@@ -27,8 +27,8 @@ straight_speed = 0x6FFF
 # Kp_spd, Ki_spd, Kd_spd = 0.5, 0.2, 0.1
 
 # PID parameters
-Kp_dir, Ki_dir, Kd_dir = 1.0, 0, 0
-Kp_spd, Ki_spd, Kd_spd = 0.8, 0, 0
+Kp_dir, Ki_dir, Kd_dir = 1.2, 0.1, 0.5
+Kp_spd, Ki_spd, Kd_spd = 0.8, 0.05, 0.2
 
 # Helper function: preprocess the image
 def preprocess_image(frame):
