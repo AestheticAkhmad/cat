@@ -65,6 +65,18 @@ try:
             left_speed = int(max(0, min(max_speed, straight_speed - direction_speed)))
             right_speed = int(max(0, min(max_speed, straight_speed + direction_speed)))
 
+            print("L: ", straight_speed - direction_speed)
+            print("R: ",straight_speed + direction_speed) 
+
+            # left_speed = min(max_speed, straight_speed - direction_speed)
+            # if (left_speed < 0):
+
+
+            # left_speed = int(max(0, min(max_speed, straight_speed - direction_speed)))
+            # right_speed = int(max(0, min(max_speed, straight_speed + direction_speed)))
+
+            
+
             print(f"Left Speed: {left_speed}, Right Speed: {right_speed}")
 
             # Send commands to the robot
