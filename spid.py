@@ -15,7 +15,7 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 60
+video_duration = 15
 frame_width, frame_height = 640, 480
 
 # # Robot parameters
@@ -27,6 +27,7 @@ frame_width, frame_height = 640, 480
 # pid_direction.output_limits = (-max_speed // 2, max_speed // 2)  # Limit output for motor adjustments
 
 # Robot parameters
+turn_speed = 0x4FFF
 straight_speed = 0x6FFF
 max_speed = 0x7FFF
 
@@ -56,6 +57,9 @@ def preprocess_image(frame):
     return None
 
 # Main loop
+prev_speed_left = 0
+prev_speed_right = 0
+
 start_time = time.time()
 try:
     while time.time() - start_time < video_duration:
@@ -78,6 +82,8 @@ try:
             
             left_speed = int(max(0, min(max_speed, straight_speed - direction_speed*turn_scale)))
             right_speed = int(max(0, min(max_speed, straight_speed + direction_speed*turn_scale)))
+            prev_speed_left = left_speed
+            prev_speed_right = right_speed
 
             print("L: ", straight_speed - direction_speed)
             print("R: ",straight_speed + direction_speed) 
@@ -99,6 +105,15 @@ try:
         else:
             print("No line detected, stopping.")
             robot.stopcar()
+            robot.changespeed(turn_speed, turn_speed)
+            if prev_speed_left - prev_speed_right > -15000:
+                robot.turnLeft()
+
+            elif prev_speed_left - prev_speed_right < 15000:
+                robot.turnRight()
+
+            else:
+                robot.stopcar()
 
         # Break loop on 'q' key press
         if cv2.waitKey(1) & 0xFF == ord('q'):
