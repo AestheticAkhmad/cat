@@ -40,7 +40,7 @@ pid_direction.output_limits = (-max_speed // 2, max_speed // 2)
 
 # Helper function: preprocess the image
 def preprocess_image(frame):
-    frame = cv2.resize(frame, (120, 120), interpolation=cv2.INTER_AREA)
+    frame = cv2.resize(frame, (320, 320), interpolation=cv2.INTER_AREA)
 
     height, width, _ = frame.shape
     roi = frame[int(height * 12 / 13):, :]  # Focus on the lower third of the frame
