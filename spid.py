@@ -15,7 +15,7 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 15
+video_duration = 45
 frame_width, frame_height = 640, 480
 
 # # Robot parameters
@@ -43,7 +43,7 @@ def preprocess_image(frame):
     frame = cv2.resize(frame, (480, 480), interpolation=cv2.INTER_AREA)
 
     height, width, _ = frame.shape
-    roi = frame[int(height * 9 / 10):, :]  # Focus on the lower third of the frame
+    roi = frame[int(height * 10 / 11):, :]  # Focus on the lower third of the frame
 
     gray = cv2.cvtColor(roi, cv2.COLOR_RGB2GRAY)
     gray_blurred = cv2.GaussianBlur(gray, (7, 7), 0)
