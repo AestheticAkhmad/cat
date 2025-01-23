@@ -34,14 +34,14 @@ max_speed = 0xFFFE
 
 # pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
 # pid_direction = PID(Kp=264, Ki=528, Kd=33, setpoint=frame_width // 2)
-pid_direction = PID(Kp=13, Ki=25, Kd=50, setpoint=frame_width // 2)
+pid_direction = PID(Kp=264, Ki=528, Kd=33, setpoint=frame_width // 2)
 
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
 
 # Helper function: preprocess the image
 def preprocess_image(frame):
     height, width, _ = frame.shape
-    roi = frame[int(height * 2 / 3):, :]  # Focus on the lower third of the frame
+    roi = frame[int(height * 3 / 4):, :]  # Focus on the lower third of the frame
 
     gray = cv2.cvtColor(roi, cv2.COLOR_RGB2GRAY)
     gray_blurred = cv2.GaussianBlur(gray, (7, 7), 0)
