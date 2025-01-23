@@ -34,7 +34,7 @@ max_speed = 0xFFFE
 
 # pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
 # pid_direction = PID(Kp=264, Ki=528, Kd=33, setpoint=frame_width // 2)
-pid_direction = PID(Kp=792, Ki=1584, Kd=99, setpoint=frame_width // 2)
+pid_direction = PID(Kp=132, Ki=264, Kd=16, setpoint=frame_width // 2)
 
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
 
