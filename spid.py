@@ -15,7 +15,7 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 40
+video_duration = 20
 frame_width, frame_height = 640, 480
 
 # # Robot parameters
@@ -28,7 +28,7 @@ frame_width, frame_height = 640, 480
 
 ### Working values
 # Robot parameters
-turn_speed = 0x7FFF
+turn_speed = 0xFFFE
 straight_speed = 0xFFFE
 max_speed = 0xFFFE
 
