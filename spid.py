@@ -15,7 +15,7 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 15
+video_duration = 5
 frame_width, frame_height = 640, 480
 
 # # Robot parameters
@@ -34,7 +34,7 @@ max_speed = 0xFFFE
 
 # pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
 # pid_direction = PID(Kp=264, Ki=528, Kd=33, setpoint=frame_width // 2)
-pid_direction = PID(Kp=528, Ki=1058, Kd=100, setpoint=frame_width // 2)
+pid_direction = PID(Kp=528, Ki=1058, Kd=66, setpoint=frame_width // 2)
 
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
 
