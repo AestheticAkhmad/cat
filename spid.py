@@ -34,12 +34,14 @@ max_speed = 0xFFFE
 
 # pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
 # pid_direction = PID(Kp=264, Ki=528, Kd=33, setpoint=frame_width // 2)
-pid_direction = PID(Kp=264, Ki=528, Kd=50, setpoint=frame_width // 2)
+pid_direction = PID(Kp=264, Ki=528, Kd=33, setpoint=frame_width // 2)
 
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
 
 # Helper function: preprocess the image
 def preprocess_image(frame):
+    frame = cv2.resize(frame, (320, 320), interpolation=cv2.INTER_AREA)
+
     height, width, _ = frame.shape
     roi = frame[int(height * 12 / 13):, :]  # Focus on the lower third of the frame
 
