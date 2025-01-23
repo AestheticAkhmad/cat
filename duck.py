@@ -58,7 +58,7 @@ def preprocess_image(frame):
     return None
 
 def detect_duck(frame):
-    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
     lower_yellow = (20, 100, 100)
     upper_yellow = (30, 255, 255)
