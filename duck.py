@@ -15,7 +15,7 @@ picam2.start()
 
 # Video settings
 frame_rate = 30
-video_duration = 70
+video_duration = 20
 frame_width, frame_height = 640, 480
 
 # # Robot parameters
@@ -96,10 +96,10 @@ try:
         if cx is not None:
             # Calculate the PID output for direction control
             direction_speed = pid_direction(cx)
-            print(f"Direction speed: {direction_speed}")
+            #print(f"Direction speed: {direction_speed}")
             
             # Calculate motor speeds
-            print("Cx: ", cx)
+            #print("Cx: ", cx)
             turn_scale = 1.0
             if cx < 80 or cx > 220:
                 turn_scale = 1.2
@@ -109,8 +109,8 @@ try:
             prev_speed_left = left_speed
             prev_speed_right = right_speed
 
-            print("L: ", straight_speed - direction_speed)
-            print("R: ",straight_speed + direction_speed) 
+            #print("L: ", straight_speed - direction_speed)
+            #print("R: ",straight_speed + direction_speed) 
 
             # left_speed = min(max_speed, straight_speed - direction_speed)
             # if (left_speed < 0):
@@ -121,13 +121,13 @@ try:
 
             
 
-            print(f"Left Speed: {left_speed}, Right Speed: {right_speed}")
+            #print(f"Left Speed: {left_speed}, Right Speed: {right_speed}")
 
             # Send commands to the robot
             robot.changespeed(left_speed, right_speed)
             robot.forward()
         else:
-            print("No line detected, stopping.")
+            #print("No line detected, stopping.")
             robot.stopcar()
             robot.changespeed(turn_speed, turn_speed)
             if prev_speed_left - prev_speed_right > -15000:
