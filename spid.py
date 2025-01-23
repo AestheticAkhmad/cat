@@ -28,7 +28,7 @@ frame_width, frame_height = 640, 480
 
 # Robot parameters
 turn_speed = 0x7FFF
-straight_speed = 0xFFFD
+straight_speed = 0xFFFA
 max_speed = 0xFFFE
 
 # pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
