@@ -27,6 +27,7 @@ frame_width, frame_height = 640, 480
 # pid_direction.output_limits = (-max_speed // 2, max_speed // 2)  # Limit output for motor adjustments
 
 ### Working values
+## Working duck
 # Robot parameters
 turn_speed = 0x5FFF
 straight_speed = 0x6FFF
