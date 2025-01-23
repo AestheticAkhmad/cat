@@ -41,7 +41,7 @@ pid_direction.output_limits = (-max_speed // 2, max_speed // 2)
 # Helper function: preprocess the image
 def preprocess_image(frame):
     height, width, _ = frame.shape
-    roi = frame[int(height * 3 / 4):, :]  # Focus on the lower third of the frame
+    roi = frame[int(height * 9 / 10):, :]  # Focus on the lower third of the frame
 
     gray = cv2.cvtColor(roi, cv2.COLOR_RGB2GRAY)
     gray_blurred = cv2.GaussianBlur(gray, (7, 7), 0)
