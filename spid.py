@@ -26,6 +26,7 @@ frame_width, frame_height = 640, 480
 # pid_direction = PID(Kp=10, Ki=50, Kd=25, setpoint=frame_width // 2)
 # pid_direction.output_limits = (-max_speed // 2, max_speed // 2)  # Limit output for motor adjustments
 
+### Working values
 # Robot parameters
 turn_speed = 0x7FFF
 straight_speed = 0xFFFA
