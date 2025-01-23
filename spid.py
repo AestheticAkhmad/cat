@@ -28,7 +28,7 @@ frame_width, frame_height = 640, 480
 
 ### Working values
 # Robot parameters
-turn_speed = 0xFFFE
+turn_speed = 0xDFFE
 straight_speed = 0xFFFE
 max_speed = 0xFFFE
 
