@@ -27,7 +27,7 @@ frame_width, frame_height = 640, 480
 # pid_direction.output_limits = (-max_speed // 2, max_speed // 2)  # Limit output for motor adjustments
 
 # Robot parameters
-turn_speed = 0x4FFF
+turn_speed = 0x6FFF
 straight_speed = 0x6FFF
 max_speed = 0x7FFF
 
@@ -107,10 +107,10 @@ try:
             robot.stopcar()
             robot.changespeed(turn_speed, turn_speed)
             if prev_speed_left - prev_speed_right > -15000:
-                robot.turnLeft()
+                robot.turnRight()
 
             elif prev_speed_left - prev_speed_right < 15000:
-                robot.turnRight()
+                robot.turnLeft()
 
             else:
                 robot.stopcar()
