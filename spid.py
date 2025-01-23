@@ -108,10 +108,10 @@ try:
             print("No line detected, stopping.")
             robot.stopcar()
             robot.changespeed(turn_speed, turn_speed)
-            if prev_speed_left - prev_speed_right > -15000:
+            if prev_speed_left - prev_speed_right > -35000:
                 robot.turnRight()
 
-            elif prev_speed_left - prev_speed_right < 15000:
+            elif prev_speed_left - prev_speed_right < 35000:
                 robot.turnLeft()
 
             else:
