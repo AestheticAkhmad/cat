@@ -6,9 +6,6 @@ import RPi.GPIO as GPIO
 from classes import Robot
 import numpy as np
 
-## QR Code library
-from pyzbar.pyzbar import decode
-
 # Initialize the robot
 robot = Robot()
 
@@ -21,7 +18,6 @@ frame_rate = 30
 video_duration = 120
 frame_width, frame_height = 640, 480
 
-## Working duck
 # Robot parameters
 turn_speed = 0x5FFF
 straight_speed = 0x6FFF
@@ -52,35 +48,26 @@ def preprocess_image(frame):
             return cx
     return None
 
-def check_qr(frame):
-    detected_qr = frame
-    operation = ""
+def detect_duck(frame):
+    img = frame.convert("RGB")
+    img_array = np.array(img)
 
-    for code in decode(detected_qr):
-        operation += code.data.decode("utf-8")
+    hsv_img = cv2.cvtColor(img_array, cv2.COLOR_RGB2HSV)
 
-    return operation
+    lower_orange = np.array([10, 80, 80])
+    upper_orange = np.array([30, 255, 255]) 
 
-def rotate_robot(rotation):
-    full_rotation_time = 1
-    rotation_time = full_rotation_time * rotation
+    mask = cv2.inRange(hsv_img, lower_orange, upper_orange)
 
-    prev_time = time.time()
-    while prev_time + rotation_time > time.time():
-        robot.changespeed(turn_speed, turn_speed)
-        robot.turnRight()
+    num_labels, _, stats, _ = cv2.connectedComponentsWithStats(mask)
 
-def do_qr_operation(operation):
-    if operation == "car_rotate_720":
-        print("Rotating the car 720 degrees.")
-        rotate_robot(2)
-    elif operation == "car_stop_10s":
-        print("Stopping the car for 10 seconds.")
-        wait_time = 10
-        time.sleep(wait_time)
-    elif operation == "car_turn_around":
-        print("Rotating the car 180 degrees.")
-        rotate_robot(0.5)
+    min_area = 400
+    for i in range(1, num_labels):
+        area = stats[i, cv2.CC_STAT_AREA]
+        if area > min_area:
+            return True
+
+    return False
 
 # Main loop
 prev_speed_left = 0
@@ -92,17 +79,16 @@ try:
         # Capture frame from the camera
         frame = picam2.capture_array()
         
-        qr_operation = check_qr(frame)
-        if qr_operation != "":
+        if detect_duck(frame) == True:
             robot.stopcar()
-            print("QR code detected. Doing mentioned operation.", qr_operation)
-            do_qr_operation(qr_operation)
+            print("Waiting for the duck to be removed...")
             continue
 
         # Preprocess the frame to find the line's centroid
         cx = preprocess_image(frame)
 
         if cx is not None:
+            # Calculate the PID output for direction control
             direction_speed = pid_direction(cx)
 
             turn_scale = 1.0
