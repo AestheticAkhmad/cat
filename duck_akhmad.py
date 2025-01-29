@@ -5,6 +5,7 @@ import time
 import RPi.GPIO as GPIO
 from classes import Robot
 import numpy as np
+from PIL import Image
 
 # Initialize the robot
 robot = Robot()
@@ -49,7 +50,8 @@ def preprocess_image(frame):
     return None
 
 def detect_duck(frame):
-    img = frame.convert("RGB")
+    img = Image.fromarray(frame)
+    img = img.convert("RGB")
     img_array = np.array(img)
 
     hsv_img = cv2.cvtColor(img_array, cv2.COLOR_RGB2HSV)
