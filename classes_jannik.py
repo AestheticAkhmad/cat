@@ -124,19 +124,19 @@ class Robot:
         # 2.5 sec for 360°
         if data == "car_stop_10s":
             print("Instruction:", data)
-            robot.stopcar()
+            Robot.stopcar()
             time.sleep(10)
         if data == "car_turn_around":
             print("Instruction:", data)
-            robot.stopcar()
+            Robot.stopcar()
             qr_turn_speed = 0x6FFF
-            robot.changespeed(qr_turn_speed, qr_turn_speed)
+            Robot.changespeed(qr_turn_speed, qr_turn_speed)
             time.sleep(1.25)
         if data == "car_rotate_720":
             print("Instruction:", data)
-            robot.stopcar()
+            Robot.stopcar()
             qr_turn_speed = 0x6FFF
-            robot.changespeed(qr_turn_speed, qr_turn_speed)
+            Robot.changespeed(qr_turn_speed, qr_turn_speed)
             time.sleep(5)
             return True
         return False
