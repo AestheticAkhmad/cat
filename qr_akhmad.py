@@ -85,45 +85,28 @@ def preprocess_image(frame):
 #         return ""
 
 def check_qr(img):
-    # Initialize QR code detector
     detector = cv2.QRCodeDetector()
-
-    # Detect and decode QR code
-    data, bbox, _ = detector.detectAndDecode(img)
+    data, bbox, _ = detector.detectAndDecode(frame)
 
     if bbox is not None:
         print("QR Code detected!")
 
-        # Draw bounding box around QR code
+        bbox = bbox.astype(int)  # Convert all bounding box points to integers
+
         for i in range(len(bbox)):
-            cv2.line(img, tuple(bbox[i][0]), tuple(bbox[(i + 1) % len(bbox)][0]), (0, 255, 0), 2)
+            pt1 = tuple(bbox[i][0])  # Convert NumPy array to tuple
+            pt2 = tuple(bbox[(i + 1) % len(bbox)][0])  # Next point in bounding box
+            cv2.line(frame, pt1, pt2, (0, 255, 0), 2)  # Draw bounding box
 
-        # Get the four corner points
-        pts = bbox.reshape(4, 2)
-        
-        # Define new points for a top-down (bird’s-eye) view
-        width = 300
-        height = 300
-        dst_pts = np.array([[0, 0], [width - 1, 0], [width - 1, height - 1], [0, height - 1]], dtype="float32")
-
-        # Compute the perspective transformation matrix
-        matrix = cv2.getPerspectiveTransform(pts, dst_pts)
-
-        # Warp the image
-        warped = cv2.warpPerspective(img, matrix, (width, height))
-
-        # Try decoding again with the corrected image
-        corrected_data, _, _ = detector.detectAndDecode(warped)
-
-        if corrected_data:
-            print("Decoded QR Code Data (After Correction):", corrected_data)
-            return corrected_data
+        if data:
+            print("Decoded QR Code Data:", data)
+            return data
         else:
-            print("QR Code detected, but no data found after correction.")
+            print("QR Code detected, but no data found.")
             return ""
     else:
         print("No QR code found.")
-        return None
+        return ""
 
 def rotate_robot(rotation):
     full_rotation_time = 2.5
