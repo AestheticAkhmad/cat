@@ -74,7 +74,7 @@ class Robot:
         GPIO.output(self.RIGHT_BACK, GPIO.LOW)
         GPIO.output(self.RIGHT_FRONT, GPIO.HIGH)
 
-    def preprocess_image(frame):
+    def preprocess_image(self, frame):
         # Focus on the lower third of the frame to detect the line
         height, width, _ = frame.shape
         roi = frame[int(height * 2 / 3):, :]
@@ -97,7 +97,7 @@ class Robot:
                 return cx
         return None
 
-    def detect_duck(frame):
+    def detect_duck(self, frame):
         # Convert frame to HSV to detect yellow objects
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         lower_yellow = (20, 100, 100)
@@ -115,7 +115,7 @@ class Robot:
                 return True
         return False
 
-    def process_qr_code(frame):
+    def process_qr_code(self, frame):
         # Detect and decode QR codes in the frame
         qr_detector = cv2.QRCodeDetector()
         data, points, _ = qr_detector.detectAndDecode(frame)
