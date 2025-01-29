@@ -23,7 +23,7 @@ frame_width, frame_height = 640, 480
 
 ## Working duck
 # Robot parameters
-turn_speed = 0x5FFF
+turn_speed = 0x6FFF
 straight_speed = 0x6FFF
 max_speed = 0x7FFF
 
@@ -62,11 +62,11 @@ def check_qr(frame):
     return operation
 
 def rotate_robot(rotation):
-    full_rotation_time = 1
+    full_rotation_time = 2.5
     rotation_time = full_rotation_time * rotation
 
     prev_time = time.time()
-    while prev_time + rotation_time > time.time():
+    while prev_time + rotation_time >= time.time():
         robot.changespeed(turn_speed, turn_speed)
         robot.turnRight()
 
