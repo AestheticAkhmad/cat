@@ -67,22 +67,63 @@ def preprocess_image(frame):
 #     if bbox:
 #         print("QR Code detected!")
 
-def check_qr(img):
+# def check_qr(img):
 
+#     # Initialize QR code detector
+#     detector = cv2.QRCodeDetector()
+
+#     # Detect and decode QR code
+#     data, _, _ = detector.detectAndDecode(img)
+
+#     #print("QR Code detected!")
+
+#     if data:
+#         print("Decoded QR Code Data:", data)
+#         return data
+#     else:
+#         print("No data found.")
+#         return ""
+
+def check_qr(img):
     # Initialize QR code detector
     detector = cv2.QRCodeDetector()
 
     # Detect and decode QR code
-    data, _, _ = detector.detectAndDecode(img)
+    data, bbox, _ = detector.detectAndDecode(img)
 
-    #print("QR Code detected!")
+    if bbox is not None:
+        print("QR Code detected!")
 
-    if data:
-        print("Decoded QR Code Data:", data)
-        return data
+        # Draw bounding box around QR code
+        for i in range(len(bbox)):
+            cv2.line(img, tuple(bbox[i][0]), tuple(bbox[(i + 1) % len(bbox)][0]), (0, 255, 0), 2)
+
+        # Get the four corner points
+        pts = bbox.reshape(4, 2)
+        
+        # Define new points for a top-down (bird’s-eye) view
+        width = 300
+        height = 300
+        dst_pts = np.array([[0, 0], [width - 1, 0], [width - 1, height - 1], [0, height - 1]], dtype="float32")
+
+        # Compute the perspective transformation matrix
+        matrix = cv2.getPerspectiveTransform(pts, dst_pts)
+
+        # Warp the image
+        warped = cv2.warpPerspective(img, matrix, (width, height))
+
+        # Try decoding again with the corrected image
+        corrected_data, _, _ = detector.detectAndDecode(warped)
+
+        if corrected_data:
+            print("Decoded QR Code Data (After Correction):", corrected_data)
+            return corrected_data
+        else:
+            print("QR Code detected, but no data found after correction.")
+            return ""
     else:
-        print("No data found.")
-        return ""
+        print("No QR code found.")
+        return None
 
 def rotate_robot(rotation):
     full_rotation_time = 2.5
