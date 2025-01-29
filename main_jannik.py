@@ -35,16 +35,16 @@ try:
         frame = picam2.capture_array()
         
         # Stop if a duck is detected
-        if detect_duck(frame) == True:
+        if robot.detect_duck(frame) == True:
             robot.stopcar()
             continue
         
         # Process QR codes if detected
-        if process_qr_code(frame) == True:
+        if robot.process_qr_code(frame) == True:
             continue
 
         # Preprocess the frame to find the centroid of the line
-        cx = preprocess_image(frame)
+        cx = robot.preprocess_image(frame)
 
         if cx is not None:
             # Adjust direction using the PID controller
