@@ -1,8 +1,9 @@
 import time
-from moving_forward import Robot
+from classes import Robot
 
 robot = Robot()
-
+turn_speed = 0x5FFF
+robot.changespeed(turn_speed, turn_speed)
 current_time = time.time()
 print("Before: ", time.time())
 while time.time() - current_time <= 2:
