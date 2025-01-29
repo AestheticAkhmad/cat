@@ -70,7 +70,7 @@ def detect_duck(frame):
 
 def process_qr_code(frame):
     # Convert to grayscale and apply Gaussian blur
-    gray = cv2.cvtColor(roi, cv2.COLOR_RGB2GRAY)
+    gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
     gray_blurred = cv2.GaussianBlur(gray, (7, 7), 0)
     
     # Detect and decode QR codes in the frame
