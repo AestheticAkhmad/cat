@@ -6,9 +6,6 @@ import RPi.GPIO as GPIO
 from classes import Robot
 import numpy as np
 
-## QR Code library
-from pyzbar.pyzbar import decode
-
 # Initialize the robot
 robot = Robot()
 
@@ -24,8 +21,8 @@ frame_width, frame_height = 640, 480
 ## Working duck
 # Robot parameters
 turn_speed = 0x6FFF
-straight_speed = 0x6FFF
-max_speed = 0x7FFF
+straight_speed = 0x5FFF
+max_speed = 0x6FFF
 
 # pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
 pid_direction = PID(Kp=100, Ki=340, Kd=9, setpoint=frame_width // 2)
@@ -52,14 +49,40 @@ def preprocess_image(frame):
             return cx
     return None
 
-def check_qr(frame):
-    detected_qr = frame
-    operation = ""
+# def check_qr(frame):
+#     detected_qr = frame
+#     operation = ""
 
-    for code in decode(detected_qr):
-        operation += code.data.decode("utf-8")
+#     for code in decode(detected_qr):
+#         operation += code.data.decode("utf-8")
 
-    return operation
+#     return operation
+
+# def check_qr(frame):
+#     qr_detector = cv2.QRCodeDetector()
+
+#     # Detect and decode QR code
+#     data, bbox, _ = qr_detector.detectAndDecode(frame)
+
+#     if bbox:
+#         print("QR Code detected!")
+
+def check_qr(img):
+
+    # Initialize QR code detector
+    detector = cv2.QRCodeDetector()
+
+    # Detect and decode QR code
+    data, _, _ = detector.detectAndDecode(img)
+
+    #print("QR Code detected!")
+
+    if data:
+        print("Decoded QR Code Data:", data)
+        return data
+    else:
+        print("No data found.")
+        return ""
 
 def rotate_robot(rotation):
     full_rotation_time = 2.5
