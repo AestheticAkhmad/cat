@@ -21,7 +21,7 @@ frame_width, frame_height = 640, 480
 # Robot parameters
 turn_speed = 0x6FFF
 straight_speed = 0x5FFF
-max_speed = 0x5FFF
+max_speed = 0x6FFF
 
 pid_direction = PID(Kp=100, Ki=340, Kd=9, setpoint=frame_width // 2)
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
@@ -122,11 +122,21 @@ def do_qr_operation(operation):
 prev_speed_left = 0
 prev_speed_right = 0
 
+frame_count = 0
+
 start_time = time.time()
 try:
     while time.time() - start_time < video_duration:
         # Capture frame from the camera
         frame = picam2.capture_array()
+
+        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # Correct color order for opencv
+
+        # Save the frame as a PNG.  Use a unique filename.
+        filename = f"frame_{frame_count}.png"  # Use f-strings for cleaner formatting
+        cv2.imwrite(filename, frame_bgr) # Save the frame to a file
+
+        frame_count += 1
         
         qr_operation = check_qr(frame)
         if qr_operation != "":
