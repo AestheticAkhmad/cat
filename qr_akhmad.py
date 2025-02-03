@@ -46,13 +46,79 @@ def preprocess_image(frame):
             return cx
     return None
 
+# def correct_perspective(img, bbox):
+#     """ Warps the QR code region to a frontal view. """
+#     if bbox is None or len(bbox) != 1:
+#         print("No valid QR")
+#         return img
+    
+#     bbox = bbox[0]
+
+#     # Define the destination points for a square warp
+#     width = 150
+#     height = 150
+#     dst_pts = np.array([
+#         [0, 0],
+#         [width - 1, 0],
+#         [width - 1, height - 1],
+#         [0, height - 1]
+#     ], dtype="float32")
+
+#     # Compute the perspective transform matrix
+#     M = cv2.getPerspectiveTransform(bbox.astype("float32"), dst_pts)
+
+#     # Apply the perspective warp
+#     corrected = cv2.warpPerspective(img, M, (width, height))
+    
+#     return corrected
+
+# def check_qr(img):
+#     # Initialize OpenCV's QR Code detector
+#     detector = cv2.QRCodeDetector()
+
+#     # Detect QR code and bounding box
+#     data, bbox, _ = detector.detectAndDecode(img)
+
+#     if bbox is not None:
+#         print("QR Code detected!")
+
+#         corrected_img = correct_perspective(img, bbox)
+
+#         data, _, _ = detector.detectAndDecode(corrected_img)
+
+#         if data:
+#             print("Decoded QR Code Data:", data)
+#             return data
+#         else:
+#             print("QR Code detected, but no data found after correction.")
+#             return ""
+#     else:
+#         print("No QR code found.")
+#         return ""
+
+def reorder_points(pts):
+    """Reorders the points to ensure correct perspective transformation."""
+    rect = np.zeros((4, 2), dtype="float32")
+    
+    # Sum of (x, y) coordinates: top-left has the smallest sum, bottom-right has the largest
+    s = pts.sum(axis=1)
+    rect[0] = pts[np.argmin(s)]  # Top-left
+    rect[2] = pts[np.argmax(s)]  # Bottom-right
+
+    # Difference of (x, y) coordinates: top-right has the smallest difference, bottom-left has the largest
+    diff = np.diff(pts, axis=1)
+    rect[1] = pts[np.argmin(diff)]  # Top-right
+    rect[3] = pts[np.argmax(diff)]  # Bottom-left
+
+    return rect
+
 def correct_perspective(img, bbox):
     """ Warps the QR code region to a frontal view. """
     if bbox is None or len(bbox) != 1:
         print("No valid QR")
         return img
     
-    bbox = bbox[0]
+    bbox = reorder_points(bbox[0])  # Reorder points
 
     # Define the destination points for a square warp
     width = 150
@@ -72,36 +138,17 @@ def correct_perspective(img, bbox):
     
     return corrected
 
-def preprocess_frame(img):
-    """ Converts to grayscale and sharpens the image. """
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
-    
-    # Apply a sharpening filter
-    kernel = np.array([[0, -1, 0],
-                       [-1, 5, -1],
-                       [0, -1, 0]])
-    sharpened = cv2.filter2D(gray, -1, kernel)
-    
-    return sharpened
-
 def check_qr(img):
-    if img is None or img.size == 0:
-        print("Error: Input image is empty!")
-        return ""
-
-    """ Detect and decode QR code with preprocessing. """
+    # Initialize OpenCV's QR Code detector
     detector = cv2.QRCodeDetector()
-    
-    # Preprocess the image
-    preprocessed_img = preprocess_frame(img)
 
-    # Detect and decode QR code
-    data, bbox, _ = detector.detectAndDecode(preprocessed_img)
+    # Detect QR code and bounding box
+    data, bbox, _ = detector.detectAndDecode(img)
 
     if bbox is not None:
         print("QR Code detected!")
 
-        corrected_img = correct_perspective(preprocessed_img, bbox)
+        corrected_img = correct_perspective(img, bbox)
 
         data, _, _ = detector.detectAndDecode(corrected_img)
 
@@ -114,7 +161,6 @@ def check_qr(img):
     else:
         print("No QR code found.")
         return ""
-
 
 def rotate_robot(rotation):
     full_rotation_time = 2.5
@@ -149,13 +195,13 @@ try:
         # Capture frame from the camera
         frame = picam2.capture_array()
 
-        #frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # Correct color order for opencv
+       # frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # Correct color order for opencv
 
         # Save the frame as a PNG.  Use a unique filename.
         #filename = f"frame_{frame_count}.png"  # Use f-strings for cleaner formatting
         #cv2.imwrite(filename, frame_bgr) # Save the frame to a file
 
-        frame_count += 1
+        #frame_count += 1
         
         qr_operation = check_qr(frame)
         if qr_operation != "":
