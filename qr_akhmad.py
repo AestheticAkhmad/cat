@@ -72,17 +72,32 @@ def correct_perspective(img, bbox):
     
     return corrected
 
-def check_qr(img):
-    # Initialize OpenCV's QR Code detector
-    detector = cv2.QRCodeDetector()
+def preprocess_frame(img):
+    """ Converts to grayscale and sharpens the image. """
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)  # Convert to grayscale
+    
+    # Apply a sharpening filter
+    kernel = np.array([[0, -1, 0],
+                       [-1, 5, -1],
+                       [0, -1, 0]])
+    sharpened = cv2.filter2D(gray, -1, kernel)
+    
+    return sharpened
 
-    # Detect QR code and bounding box
-    data, bbox, _ = detector.detectAndDecode(img)
+def check_qr(img):
+    """ Detect and decode QR code with preprocessing. """
+    detector = cv2.QRCodeDetector()
+    
+    # Preprocess the image
+    preprocessed_img = preprocess_frame(img)
+
+    # Detect and decode QR code
+    data, bbox, _ = detector.detectAndDecode(preprocessed_img)
 
     if bbox is not None:
         print("QR Code detected!")
 
-        corrected_img = correct_perspective(img, bbox)
+        corrected_img = correct_perspective(preprocessed_img, bbox)
 
         data, _, _ = detector.detectAndDecode(corrected_img)
 
@@ -130,11 +145,11 @@ try:
         # Capture frame from the camera
         frame = picam2.capture_array()
 
-        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # Correct color order for opencv
+        #frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR) # Correct color order for opencv
 
         # Save the frame as a PNG.  Use a unique filename.
-        filename = f"frame_{frame_count}.png"  # Use f-strings for cleaner formatting
-        cv2.imwrite(filename, frame_bgr) # Save the frame to a file
+        #filename = f"frame_{frame_count}.png"  # Use f-strings for cleaner formatting
+        #cv2.imwrite(filename, frame_bgr) # Save the frame to a file
 
         frame_count += 1
         
