@@ -19,9 +19,9 @@ video_duration = 120
 frame_width, frame_height = 640, 480
 
 # Robot parameters
-turn_speed = 0x6FFF
+turn_speed = 0x5FFF
 straight_speed = 0x5FFF
-max_speed = 0x6FFF
+max_speed = 0x5FFF
 
 pid_direction = PID(Kp=100, Ki=340, Kd=9, setpoint=frame_width // 2)
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
@@ -91,10 +91,10 @@ def check_qr(img):
             return data
         else:
             print("QR Code detected, but no data found after correction.")
-            return None
+            return ""
     else:
         print("No QR code found.")
-        return None
+        return ""
 
 
 def rotate_robot(rotation):
