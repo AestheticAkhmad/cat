@@ -85,6 +85,10 @@ def preprocess_frame(img):
     return sharpened
 
 def check_qr(img):
+    if img is None or img.size == 0:
+        print("Error: Input image is empty!")
+        return ""
+
     """ Detect and decode QR code with preprocessing. """
     detector = cv2.QRCodeDetector()
     
