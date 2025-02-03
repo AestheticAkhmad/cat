@@ -121,8 +121,8 @@ def correct_perspective(img, bbox):
     bbox = reorder_points(bbox[0])  # Reorder points
 
     # Define the destination points for a square warp
-    width = 150
-    height = 150
+    width = 300
+    height = 300
     dst_pts = np.array([
         [0, 0],
         [width - 1, 0],
