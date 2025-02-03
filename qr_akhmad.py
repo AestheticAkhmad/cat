@@ -96,6 +96,7 @@ def preprocess_image(frame):
 #         print("No QR code found.")
 #         return ""
 
+
 def reorder_points(pts):
     """Reorders the points to ensure correct perspective transformation."""
     rect = np.zeros((4, 2), dtype="float32")
@@ -120,13 +121,12 @@ def correct_perspective(img, bbox):
     
     bbox = reorder_points(bbox[0])  # Reorder points
 
-    # Define the destination points for a square warp
-    width = 300
-    height = 300
+    # Increase resolution for better clarity
+    width, height = 200, 200  
     dst_pts = np.array([
-        [0, 0],
-        [width - 1, 0],
-        [width - 1, height - 1],
+        [0, 0], 
+        [width - 1, 0], 
+        [width - 1, height - 1], 
         [0, height - 1]
     ], dtype="float32")
 
@@ -138,8 +138,14 @@ def correct_perspective(img, bbox):
     
     return corrected
 
+def preprocess_qr(image):
+    """Converts image to grayscale and applies sharpening to improve readability."""
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    sharpened = cv2.GaussianBlur(gray, (3, 3), 0)
+    return sharpened
+
 def check_qr(img):
-    # Initialize OpenCV's QR Code detector
+    """Detects and decodes a QR code from an image."""
     detector = cv2.QRCodeDetector()
 
     # Detect QR code and bounding box
@@ -149,8 +155,12 @@ def check_qr(img):
         print("QR Code detected!")
 
         corrected_img = correct_perspective(img, bbox)
+        preprocessed_img = preprocess_qr(corrected_img)  # Apply preprocessing
 
-        data, _, _ = detector.detectAndDecode(corrected_img)
+        # Save for debugging
+        cv2.imwrite("corrected_qr.png", corrected_img)
+
+        data, _, _ = detector.detectAndDecode(preprocessed_img)
 
         if data:
             print("Decoded QR Code Data:", data)
@@ -161,6 +171,7 @@ def check_qr(img):
     else:
         print("No QR code found.")
         return ""
+
 
 def rotate_robot(rotation):
     full_rotation_time = 2.5
