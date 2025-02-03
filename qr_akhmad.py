@@ -19,7 +19,7 @@ video_duration = 120
 frame_width, frame_height = 640, 480
 
 # Robot parameters
-turn_speed = 0x5FFF
+turn_speed = 0x6FFF
 straight_speed = 0x5FFF
 max_speed = 0x5FFF
 
