@@ -18,15 +18,12 @@ frame_rate = 30
 video_duration = 120
 frame_width, frame_height = 640, 480
 
-## Working duck
 # Robot parameters
 turn_speed = 0x6FFF
 straight_speed = 0x5FFF
 max_speed = 0x6FFF
 
-# pid_direction = PID(Kp=13, Ki=66, Kd=33, setpoint=frame_width // 2)
 pid_direction = PID(Kp=100, Ki=340, Kd=9, setpoint=frame_width // 2)
-
 pid_direction.output_limits = (-max_speed // 2, max_speed // 2) 
 
 # Helper function: preprocess the image
@@ -49,64 +46,56 @@ def preprocess_image(frame):
             return cx
     return None
 
-# def check_qr(frame):
-#     detected_qr = frame
-#     operation = ""
+def correct_perspective(img, bbox):
+    """ Warps the QR code region to a frontal view. """
+    if bbox is None or len(bbox) != 1:
+        print("No valid QR")
+        return img
+    
+    bbox = bbox[0]
 
-#     for code in decode(detected_qr):
-#         operation += code.data.decode("utf-8")
+    # Define the destination points for a square warp
+    width = 150
+    height = 150
+    dst_pts = np.array([
+        [0, 0],
+        [width - 1, 0],
+        [width - 1, height - 1],
+        [0, height - 1]
+    ], dtype="float32")
 
-#     return operation
+    # Compute the perspective transform matrix
+    M = cv2.getPerspectiveTransform(bbox.astype("float32"), dst_pts)
 
-# def check_qr(frame):
-#     qr_detector = cv2.QRCodeDetector()
-
-#     # Detect and decode QR code
-#     data, bbox, _ = qr_detector.detectAndDecode(frame)
-
-#     if bbox:
-#         print("QR Code detected!")
-
-# def check_qr(img):
-
-#     # Initialize QR code detector
-#     detector = cv2.QRCodeDetector()
-
-#     # Detect and decode QR code
-#     data, _, _ = detector.detectAndDecode(img)
-
-#     #print("QR Code detected!")
-
-#     if data:
-#         print("Decoded QR Code Data:", data)
-#         return data
-#     else:
-#         print("No data found.")
-#         return ""
+    # Apply the perspective warp
+    corrected = cv2.warpPerspective(img, M, (width, height))
+    
+    return corrected
 
 def check_qr(img):
+    # Initialize OpenCV's QR Code detector
     detector = cv2.QRCodeDetector()
-    data, bbox, _ = detector.detectAndDecode(frame)
+
+    # Detect QR code and bounding box
+    data, bbox, _ = detector.detectAndDecode(img)
 
     if bbox is not None:
         print("QR Code detected!")
 
-        bbox = bbox.astype(int)  # Convert all bounding box points to integers
+        corrected_img = correct_perspective(img, bbox)
 
-        for i in range(len(bbox)):
-            pt1 = tuple(bbox[i][0])  # Convert NumPy array to tuple
-            pt2 = tuple(bbox[(i + 1) % len(bbox)][0])  # Next point in bounding box
-            cv2.line(frame, pt1, pt2, (0, 255, 0), 2)  # Draw bounding box
+        data, _, _ = detector.detectAndDecode(corrected_img)
 
         if data:
             print("Decoded QR Code Data:", data)
             return data
         else:
-            print("QR Code detected, but no data found.")
-            return ""
+            print("QR Code detected, but no data found after correction.")
+            return None
     else:
         print("No QR code found.")
-        return ""
+        return None
+
 
 def rotate_robot(rotation):
     full_rotation_time = 2.5
@@ -146,7 +135,7 @@ try:
             do_qr_operation(qr_operation)
             continue
 
-        # Preprocess the frame to find the line's centroid
+        # Finding line centroid
         cx = preprocess_image(frame)
 
         if cx is not None:
@@ -164,8 +153,8 @@ try:
             # Send commands to the robot
             robot.changespeed(left_speed, right_speed)
             robot.forward()
+
         else:
-            #print("No line detected, stopping.")
             robot.stopcar()
             robot.changespeed(turn_speed, turn_speed)
             if prev_speed_left - prev_speed_right > -15000:
@@ -181,7 +170,6 @@ try:
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 finally:
-    # Cleanup resources
     picam2.stop()
     cv2.destroyAllWindows()
     robot.stopcar()
